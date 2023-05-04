@@ -1,0 +1,24 @@
+{
+    "status": "OK",
+    "message": "검토 대기 방 리스트",
+    "data": {
+      "totalPages": 1,
+      "room": [
+        {
+          "roomId": "43348cac-f939-41bf-8a8c-f0cf302e4539",
+          "frontMemo": "djdjdj",
+          "deposit": 1000000,
+          "rent": 300000,
+          "address": "서울특별시 강남구 dddd",
+          "status": "검토중",
+          "createAt": "2023-05-03 11:45:57",
+          "photoPath": "http://210.99.223.38:13405/api/file/room-photo/thumbnail?roomId=f571e4b4-e7aa-4c48-bcea-b7e87e3e7ff8&imageId=32748d29-da39-48c4-b765-49ae717d71fc",
+          "roomOptionId": "f571e4b4-e7aa-4c48-bcea-b7e87e3e7ff8",
+          "isPosted": null,
+          "saleNumber": "4083456446",
+          "ownerNumber": "010-6886-8686"
+        }
+      ],
+      "totalElements": 1
+    }
+  }

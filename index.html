@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css"/>
+    
+    
+    <link rel="stylesheet" href="./vendors/Glider.js-master/glider.min.css">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.css"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="./vendors/font-awesome-4.7.0/css/font-awesome.min.css"/> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css"/>
+    <link rel="stylesheet" type="text/css" href="./assets/style/overide-config.css"/>
+    <link rel="stylesheet" type="text/css" href="./assets/style/style.css"/>
+</head>
+<body>
+    <main class="container-fluid">
+        <!-- top most -->
+        <section class="d-flex justify-content-center justify-content-xl-between align-items-center flex-row flex-wrap mt-3" style="z-index: 2000;">
+            <!-- left side -->
+            <div class="d-flex justify-content-start align-items-center flex-row">
+                <h4 class="text-tilt fw-bold lh-1 mb-0 d-none" id="section-title">Section Title</h4>
+                <div class="mx-4">
+                    <template id="selectedShopTemp">
+                        <option value="{{shoptype}}">{{shoptype}}</option>
+                    </template>
+                    <select class="form-select" id="shopTypeSelect" aria-label="Default select example">                                            
+                    </select>
+                </div>
+                <div id="shopOptions">
+                    <template id="languageSelectTemp">
+                        <option value="{{code}}">{{language}}</option>
+                    </template>
+                    <select class="form-select" onchange="selectLanguageListHandler(this)" data-shopselect="" id="languageSelect" aria-label="Default select example">                                            
+                    </select>
+                </div>
+
+                <div id="roomOption" class="d-none">
+                    <template id="roomLangSelectTemp">
+                        <option value="{{code}}">{{language}}</option>
+                    </template>
+                    <select class="form-select" onchange="selectRoomLanguageHandler(this)" data-shopselect="" id="roomLanguageSelect" aria-label="Default select example">                                            
+                    </select>
+                </div>
+            </div>
+
+            <!-- right side -->
+            <div class="d-flex justify-content-end align-items-center flex-row my-3 my-xl-0 ms-0 ms-xl-3">
+                <button type="button" class="btn btn-tilt" id="addNewPositionBtn">
+                    <div class="d-flex justify-content-center align-items-center flex-row flex-nowrap">
+                        <i class="fa-solid fa-plus"></i>
+                        <span class="text-nowrap ms-2 mt-1">Add New Position</span>
+                    </div>
+                </button>
+                <div class="input-group me-4 me-xl-0 ms-4 ">
+                    <input type="text" class="form-control border border-tilt border-end-0" placeholder="맛있는 고기에 솜씨를 더하다" aria-label="맛있는 고기에 솜씨를 더하다">
+                    <button class="btn btn-outline-tilt border-start-0" type="button"><i class="fa-solid fa-search"></i></button>
+                </div>
+
+            </div>
+        </section>
+        <!-- input fields // massage -->
+        <section id="massageSectionElex" class="my-4">
+            <!-- close button -->
+            <div class="row justify-content-end">
+                <div class="col-auto">
+                    <button class="btn btn-tilt closeMassageBtn" id="closeMassageBtn">
+                        <i class="fa-solid fa-times mt-1"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="row g-4">
+                <!-- images section -->
+                <div class="col-12 col-md-6 col-xl-3">
+                    <div class="main-thumb img-holder w-100 shadow rounded-3 overflow-hidden p-3" style="height: 320px;">
+                        <img class="obj-contain" id="preview" src="./vendors/imgs/preview-default.svg" alt="">
+                    </div>
+                    <div class="w-100 my-3">
+                        <template id="slideTemp">
+                            <!-- <div class="img-holder glider-img rounded-2">
+                                <img class="obj-cover" onClick="displayPreviewDom(this)" data-src="{{src}}" src="{{src}}" alt="{{name}}">
+                            </div> -->
+                            <div class="carousel-item {{active}}">
+                                <img class="img-fluid" onClick="displayPreviewDom(this)" data-src="{{src}}" src="{{src}}" alt="{{name}}">
+                            </div>
+                        </template>
+
+                        <!-- <div class="glider-content">
+                            <div class="glider-contain">
+                                <div class="glider" id="sliderCont"></div>
+
+                                <button aria-label="Previous" class="glider-prev">
+                                    <span class="btn btn-sm btn-tilt rounded-pill">
+                                        <i class="fa-solid fa-angle-left"></i>
+                                    </span>
+                                </button>
+
+                                <button aria-label="Next" class="glider-next">
+                                    <span class="btn btn-sm btn-tilt rounded-pill">
+                                        <i class="fa-solid fa-angle-right"></i>
+                                    </span>
+                                </button>
+                            </div>
+                        </div> -->
+                        
+                        <div id="carouselExample" class="carousel slide">
+                            <div class="carousel-inner text-center" id="sliderCont">
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                                <span class="btn btn-sm btn-tilt rounded-pill">
+                                    <i class="fa-solid fa-angle-left"></i>
+                                </span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                                <span class="btn btn-sm btn-tilt rounded-pill">
+                                    <i class="fa-solid fa-angle-right"></i>
+                                </span>
+                            </button>
+                          </div>
+                        
+                    </div>
+                    <div class="w-100">
+                        <div class="mb-2 d-flex justify-content-start align-items-center flex-row flex-nowrap">
+                            <label for="thumbnailInput" class="col-form-label text-nowrap me-2">
+                                Profile Thumb
+                            </label>
+                            <input type="file" onClick="addThumbVendor(this)" name="thumbnailInput" id="thumbnailInput" class="form-control border border-tilt">
+                        </div>
+                        <div class="d-flex justify-content-start align-items-center flex-row flex-nowrap">
+                            <label for="filesInput" class="col-form-label text-nowrap me-2">
+                                Shop Images&nbsp;&nbsp;
+                            </label>
+                            <input type="file" onClick="addFilesThumbnailVendor(this)" name="filesInput[]" id="filesInput" class="form-control border border-tilt" multiple accept="images/*">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- title -->
+                <div class="col-12 col-md-6 col-xl-3">
+                    <div class="w-100 mb-3">
+                        <input type="hidden" id="shopid" value="">
+                        <div class="w-100 d-flex justify-content-start align-items-center flex-row flex-nowrap">
+                            <h6 class="mb-0 lh-1 text-tilt fw-bold formTitle me-3">맛있는 고기에 솜씨를 더하다</h6>
+                            <button type="button" class="btn btn-tilt btn-sm rounded-pill px-3">Edit</button>
+                        </div>
+                    </div>
+                    <div class="row g-2">
+                        <!-- title -->
+                        <div class="col-3">
+                            <label for="" class="col-form-label">Title</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" id="title" class="form-control" placeholder="Title">
+                        </div>
+                        <!-- sub-title -->
+                        <div class="col-3">
+                            <label for="subtitle" class="col-form-label">Sub-Title</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" id="subtitle" class="form-control" placeholder="Sub-Title">
+                        </div>
+                        <!-- address -->
+                        <div class="col-3">
+                            <label for="address" class="col-form-label">Address</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" id="address" class="form-control" placeholder="Address">
+                        </div>
+                        <!-- sido code -->
+                        <div class="col-3">
+                            <label for="sidocode" class="col-form-label">Sido Code</label>
+                        </div>
+                        <div class="col-9">
+                            <template id="sidoTemplate">
+                                <option value="{{sidoCode}}">{{sidoName}}</option>
+                            </template>
+                            <div class="form-group">
+                                <select class="form-select bg-gray100 shadow-none outline-0" name="sidocode" id="sidocode"> </select>
+                            </div>
+                        </div>
+                        <!-- age -->
+                        <div class="col-3">
+                            <label for="startAge" class="col-form-label">Age</label>
+                        </div>
+                        <div class="col-9">
+                            <div class="d-flex justify-content-center align-items-center flex-row flex-nowrap">
+                                <input type="number" id="startAge" min="1" class="form-control" placeholder="Min">
+                                <span class="mx-2"><i class="fa-solid fa-minus"></i></span>
+                                <input type="number" id="endAge" min="1" class="form-control" placeholder="Max">
+                            </div>
+                        </div>
+                        <!-- phone number -->
+                        <div class="col-3">
+                            <label for="phoneNumber" class="col-form-label">Phone Number</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" id="phoneNumber" class="form-control" placeholder="Phone Number">
+                        </div>
+                        <!-- line id -->
+                        <div class="col-3">
+                            <label for="lineId" class="col-form-label">Line ID</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" id="lineId" class="form-control" placeholder="Line ID">
+                        </div>
+                        <div class="col-3">
+                            <label for="memo">Memo Here</label>
+                        </div>
+                        <div class="col-9">
+                            <textarea class="form-control border-0 bg-gray100" rows="3" placeholder="Shop Message Here" id="memo"></textarea>
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- salary -->
+                <div class="col-12 col-md-6 col-xl-3">
+                    <div class="w-100 mb-3 opacity-0 d-none d-xl-block">
+                        <input type="hidden">
+                        <div class="w-100 d-flex justify-content-start align-items-center flex-row flex-nowrap">
+                            <h6 class="mb-0 lh-1 text-tilt fw-bold formTitle me-3">맛있는 고기에 솜씨를 더하다</h6>
+                            <button type="button" class="btn btn-tilt btn-sm rounded-pill px-3">Edit</button>
+                        </div>
+                    </div>
+
+                    <div class="row g-2">
+                        <!-- salary -->
+                        <div class="col-3">
+                            <label for="salary" class="col-form-label">Salary</label>
+                        </div>
+                        <div class="col-9">
+                            <div class="input-group">
+                                <input type="text" id="salary" class="form-control" placeholder="Ex: 1,500,000">
+                                <span class="input-group-text bg-gray100 border-0">
+                                    <i class="fa-solid fa-won-sign" style="color: #0c4347;"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <!-- payday -->
+                        <div class="col-3">
+                            <label for="payday" class="col-form-label">Payday</label>
+                        </div>
+                        <div class="col-9">
+                            <div class="input-group">
+                                <input type="number" id="payday" min="1" class="form-control" placeholder="Ex: 15th">
+                                <span class="input-group-text bg-gray100 border-0">
+                                    <i class="fa-solid fa-calendar-day" style="color: #0c4347;"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <!-- payday -->
+                        <div class="col-3">
+                            
+                        </div>
+                        <div class="col-9">
+                            <div class="form-check">
+                                <input class="form-check-input shadow-none border-tilt" type="checkbox" id="isPayoutDateNegotiable">
+                                <label class="form-check-label cursor-pointer user-select-none text-tilt" for="isPayoutDateNegotiable">
+                                    (Payday Negotiable?)
+                                </label>
+                            </div>
+                        </div>
+                        <!-- working hours -->
+                        <div class="row mt-5">
+                            <div class="col-3">
+                                <label class="col-form-label">Work Hours</label> 
+                            </div>
+                            <div class="col-9">
+                                <div class="d-flex justify-content-center align-items-center flex-row flex-nowrap">
+                                    <label for="timeStart" class="col-form-label fw-normal " style="font-size: 14px;">from</label>
+                                    <input type="text" id="timeStart" class="form-control mx-2" autocomplete="off" placeholder="HH:MM" data-toggle="tooltip" title="24:00">
+                                    <label for="timeEnd" class="col-form-label  fw-normal me-2" style="font-size: 14px;">to</label>
+                                    <input type="text" id="timeEnd" class="form-control" autocomplete="off" placeholder="HH:MM" data-toggle="tooltip" title="24:00">
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input shadow-none border-tilt" type="checkbox" id="isWorkingTimeNegotiable">
+                                    <label class="form-check-label cursor-pointer user-select-none text-tilt" for="isWorkingTimeNegotiable">
+                                        (Work Time Negotiable?)
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- holiday -->
+                        <div class="row mt-5">
+                            <div class="col-3">
+                                <label for="holiday" class="col-form-label">Holiday</label>
+                            </div>
+                            <div class="col-9">
+                                <div class="d-flex justify-content-center align-items-center flex-row flex-nowrap">
+                                    <input type="number" id="holiday" class="form-control">
+                                    <label for="holiday" class="col-form-label fw-normal mx-2 text-nowrap" style="font-size: 14px;">Days / Week</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input shadow-none border-tilt" type="checkbox" id="isHolidayNegotialble">
+                                        <label class="form-check-label cursor-pointer user-select-none text-tilt" for="isHolidayNegotialble">Negotiable?</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Average -->
+                        <div class="col-3">
+                            <label for="average" class="col-form-label">Average</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="number" id="average" class="form-control" placeholder="Ex: 4">
+                        </div>
+                        <div class="col-3">
+                            <label for="roomtype" class="col-form-label">Room Type</label>
+                        </div>
+                        <div class="col-9">
+                            <template id="sidoTemplate"></template>
+                            <div class="form-group">
+                                <select class="form-select" name="roomtype" id="roomtype">
+                                <option value="내부">내부</option>
+                                <option value="외부">외부</option>
+                                <option value="내부/외부 모두가능">내부/외부 모두가능</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- commission -->
+                <div class="col-12 col-md-6 col-xl-3">
+                    <div class="d-flex justify-content-between align-items-start flex-column h-100">
+                        <!-- close button -->
+                        <div>
+                            <div class="row g-2 mt-4">
+                                <!-- Commission salary -->
+                                <div class="col-3">
+                                    <label for="commsalary" class="col-form-label">Commission Date</label>
+                                </div>
+                                <div class="col-9">
+                                    <div class="input-group mt-3">
+                                        <input type="number" min="1" max="31" id="commsalary" class="form-control" placeholder="31">
+                                        <span class="input-group-text bg-gray100 border-0">
+                                            <i class="fa-solid fa-calendar-day" style="color: #0c4347;"></i>
+                                        </span>
+                                    </div>  
+                                </div>
+                                <!-- Commission -->
+                                <div class="col-12">
+                                    <label for="serviceOpt" class="col-form-label">Commission</label>
+                                </div>
+        
+                                <!-- service -->
+                                <div class="col-4">
+                                    <input type="text" id="service" class="form-control" placeholder="Service">
+                                </div>
+        
+                                <!-- time -->
+                                <div class="col-3">
+                                    <input type="text" id="servicetime" class="form-control" autocomplete="off" placeholder="HH:MM" data-toggle="tooltip" title="24:00">
+                                </div>
+                                <!-- amount -->
+                                <div class="col-4">
+                                    <input type="text" id="serviceamount" class="form-control" placeholder="Amount">
+                                </div>
+                                <!-- btn -->
+                                <div class="col-1">
+                                    <button class="btn btn-tilt btn-sm  w-100 px-0" id="addCommissionBtn">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
+                                </div>
+                                
+                                <div class="col-12">
+                                    <template id="commissionTemp">
+                                        <tr class="row g-2">
+                                            <td class="col-4">{{serviceType}}</td>
+                                            <td class="col-3">{{serviceTime}}</td>
+                                            <td class="col-4">{{servicePrice}}</td>
+                                            <th class="col-1 scope">
+                                                <button class="btn btn-sm btn-outline-danger deleteCommissionBtn" id="{{idname}}" data-index="{{id}}">
+                                                    <i class="fa-solid fa-times"></i>
+                                                </button>
+                                            </th>
+                                        </tr>
+                                    </template>
+                                    <table class="table align-middle" id="commissionTable">
+                                        <tbody class="text-center" id="commissionCont"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="d-flex justify-content-end align-items-center flex-row w-100">
+                            <button type="button" class="btn btn-tilt rounded-3 px-5 p" id="uploadShopBtn">Save Shop </button>
+                            <button type="button" class="btn btn-tilt rounded-3 px-5 p d-none" id="updateShopBtn">Update Shop </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- input fields // other -->
+        <section id="otherSectionEle" class="my-4 d-none">
+            <div class="row justify-content-end">                
+                <div class="d-flex justify-content-start align-items-center flex-row gap-2">
+                    <button type="button" onclick="reviewRoomHandler(this)" class="btn btn-tilt" id="addNewPositionBtn">
+                        <div class="d-flex justify-content-center align-items-center flex-row flex-nowrap">
+                            <i class="fa-solid fa-eye"></i>
+                            <span class="text-nowrap ms-2 mt-1">Review Room</span>
+                        </div>
+                    </button>
+                    <button type="button" onclick="editRoomHandler(this)" class="btn btn-tilt" id="addNewPositionBtn">
+                        <div class="d-flex justify-content-center align-items-center flex-row flex-nowrap">
+                            <i class="fa-solid fa-pencil"></i>
+                            <span class="text-nowrap ms-2 mt-1">Edit Room</span>
+                        </div>
+                    </button>
+                </div>
+    
+                <!-- right side -->
+                <div class="d-flex justify-content-end align-items-center flex-row">
+                    <div class="col-auto"><button class="btn btn-tilt" id="closeOtherSectionBtn"><i class="fa fa-times" aria-hidden="true"></i></button></div>    
+                </div>
+            </div>
+            <div class="row g-4">
+                <!-- images section -->
+                <div class="col-12 col-md-6 col-xl-3">
+                    <div class="main-thumb img-holder w-100 shadow rounded-3 overflow-hidden p-3" style="height: 320px;">
+                        <img class="obj-contain" id="preview" src="./vendors/imgs/preview-default.svg" alt="">
+                    </div>
+                    <div class="w-100 my-3">
+                        <template id="slideTemp">
+                            <!-- <div class="img-holder glider-img rounded-2">
+                                <img class="obj-cover" onClick="displayPreviewDom(this)" data-src="{{src}}" src="{{src}}" alt="{{name}}">
+                            </div> -->
+                            <div class="carousel-item {{active}}">
+                                <img class="img-fluid" onClick="displayPreviewDom(this)" data-src="{{src}}" src="{{src}}" alt="{{name}}">
+                            </div>
+                        </template>
+
+                        <!-- <div class="glider-content">
+                            <div class="glider-contain">
+                                <div class="glider" id="sliderCont"></div>
+
+                                <button aria-label="Previous" class="glider-prev">
+                                    <span class="btn btn-sm btn-tilt rounded-pill">
+                                        <i class="fa-solid fa-angle-left"></i>
+                                    </span>
+                                </button>
+
+                                <button aria-label="Next" class="glider-next">
+                                    <span class="btn btn-sm btn-tilt rounded-pill">
+                                        <i class="fa-solid fa-angle-right"></i>
+                                    </span>
+                                </button>
+                            </div>
+                        </div> -->
+                        
+                        <div id="carouselExample" class="carousel slide">
+                            <div class="carousel-inner text-center" id="sliderHotelCont">
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                                <span class="btn btn-sm btn-tilt rounded-pill">
+                                    <i class="fa-solid fa-angle-left"></i>
+                                </span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                                <span class="btn btn-sm btn-tilt rounded-pill">
+                                    <i class="fa-solid fa-angle-right"></i>
+                                </span>
+                            </button>
+                          </div>
+                        
+                    </div>
+                    <div class="w-100 d-none">
+                        <div class="mb-2 d-flex justify-content-start align-items-center flex-row flex-nowrap">
+                            <label for="thumbnailInput" class="col-form-label text-nowrap me-2">
+                                Profile Thumb
+                            </label>
+                            <input type="file" onClick="addThumbVendor(this)" name="thumbnailInput" id="thumbnailInput" class="form-control border border-tilt">
+                        </div>
+                        <div class="d-flex justify-content-start align-items-center flex-row flex-nowrap">
+                            <label for="filesInput" class="col-form-label text-nowrap me-2">
+                                Shop Images&nbsp;&nbsp;
+                            </label>
+                            <input type="file" onClick="addFilesThumbnailVendor(this)" name="filesInput[]" id="filesInput" class="form-control border border-tilt" multiple accept="images/*">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- title -->
+                <div class="col-12 col-md-6 col-xl-3">
+                    <div class="w-100 mb-3">
+                        <input type="hidden" id="shopid" value="">
+                        <div class="w-100 d-flex justify-content-start align-items-center flex-row flex-nowrap">
+                            <h6 class="mb-0 lh-1 text-tilt fw-bold formTitle me-3">맛있는 고기에 솜씨를 더하다</h6>
+                            <button type="button" class="btn btn-tilt btn-sm rounded-pill px-3">Edit</button>
+                        </div>
+                    </div>
+                    <div class="row g-2">
+                        <!-- title -->
+                        <div class="col-3">
+                            <label for="" class="col-form-label">Title</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" id="title" class="form-control" placeholder="Title">
+                        </div>
+                        <!-- sido code -->
+                        <div class="col-3">
+                            <label for="sidocode" class="col-form-label">Sido Code</label>
+                        </div>
+                        <div class="col-9">
+                            <template id="sidoTemplate">
+                                <option value="{{sidoCode}}">{{sidoName}}</option>
+                            </template>
+                            <div class="form-group">
+                                <select class="form-select bg-gray100 shadow-none outline-0" name="sidocode" id="sidocode"> </select>
+                            </div>
+                        </div>
+                        <!-- city -->
+                        <div class="col-3">
+                            <label for="sidocode" class="col-form-label">City</label>
+                        </div>
+                        <div class="col-9">
+                            <template id="cityTemplate">
+                                <option value="{{city}}">{{city}}</option>
+                            </template>
+                            <div class="form-group">
+                                <select class="form-select bg-gray100 shadow-none outline-0" name="city" id="city"> </select>
+                            </div>
+                        </div>
+                        <!-- address -->
+                        <div class="col-3">
+                            <label for="address" class="col-form-label">Address</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" id="address" class="form-control" placeholder="Address">
+                        </div>
+                        
+                        <!-- contract expiry -->
+                        <div class="col-3">
+                            <label for="contractExpire" class="col-form-label">Contract Expiry</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="date" id="contractExpire" class="form-control">
+                        </div>
+                        <!-- move-in date -->
+                        <div class="col-3">
+                            <label for="movedate" class="col-form-label">Move-In Date</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="date" id="movedate" class="form-control">
+                            <div class="form-check">
+                                <input class="form-check-input shadow-none border-tilt" type="checkbox" id="isMoveInDatePossible">
+                                <label class="form-check-label cursor-pointer user-select-none text-tilt" for="isMoveInDatePossible">
+                                    (Move-in immediate?)
+                                </label>
+                            </div>
+                        </div>
+                       
+                        <div class="col-3">
+                            <label for="info">Detailed Info</label>
+                        </div>
+                        <div class="col-9">
+                            <textarea class="form-control border-0 bg-gray100" rows="3" placeholder="Detailed Info Here" id="info"></textarea>
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- deposits -->
+                <div class="col-12 col-md-6 col-xl-3">
+                    <div class="w-100 mb-3 opacity-0 d-none d-xl-block">
+                        <input type="hidden">
+                        <div class="w-100 d-flex justify-content-start align-items-center flex-row flex-nowrap">
+                            <h6 class="mb-0 lh-1 text-tilt fw-bold formTitle me-3">맛있는 고기에 솜씨를 더하다</h6>
+                            <button type="button" class="btn btn-tilt btn-sm rounded-pill px-3">Edit</button>
+                        </div>
+                    </div>
+
+                    <div class="row g-2">
+                        <!-- deposit -->
+                        <div class="col-3">
+                            <label for="deposit" class="col-form-label">Deposit</label>
+                        </div>
+                        <div class="col-9">
+                            <div class="input-group">
+                                <input type="text" id="deposit" class="form-control" placeholder="Ex: 1,500,000">
+                                <span class="input-group-text bg-gray100 border-0">
+                                    <i class="fa-solid fa-won-sign" style="color: #0c4347;"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <!-- rent -->
+                        <div class="col-3">
+                            <label for="rent" class="col-form-label">Rent</label>
+                        </div>
+                        <div class="col-9">
+                            <div class="input-group">
+                                <input type="text" id="rent" class="form-control" placeholder="Ex: 1,500,000">
+                                <span class="input-group-text bg-gray100 border-0">
+                                    <i class="fa-solid fa-won-sign" style="color: #0c4347;"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <!-- year -->
+                        <div class="col-3">
+                            <label for="year" class="col-form-label">Year Stay</label>
+                        </div>
+                        <div class="col-9">
+                            <div class="input-group">
+                                <input type="number" id="year" min="1" class="form-control" placeholder="Ex: 1">
+                                <span class="input-group-text bg-gray100 border-0">
+                                    <i class="fa-solid fa-calendar-day" style="color: #0c4347;"></i>
+                                </span>                                
+                            </div>
+                        </div>
+                        <!-- year -->
+                        <div class="col-3">
+                            <label for="month" class="col-form-label"> Month Stay</label>
+                        </div>
+                        <div class="col-9">
+                            <div class="input-group">
+                                <input type="number" id="month" min="1" class="form-control" placeholder="Ex: 6">
+                                <span class="input-group-text bg-gray100 border-0">
+                                    <i class="fa-solid fa-calendar-day" style="color: #0c4347;"></i>
+                                </span>                                
+                            </div>
+                        </div>
+                        <!-- area -->
+                        <div class="row mt-5">
+                            <div class="col-3">
+                                <label for="area" class="col-form-label">Area Size</label>
+                            </div>
+                            <div class="col-9">
+                                <div class="d-flex justify-content-center align-items-center flex-row flex-nowrap">
+                                    <input type="number" id="area" class="form-control" placeholder="200">   
+                                    <button type="button" class="btn btn-tilt mx-2">Flat</button>
+                                    <button type="button" class="btn btn-tilt disabled">㎡</button>      
+                                </div>
+                            </div>
+                        </div>
+                        <!-- floor -->
+                        <div class="col-3">
+                            <label for="floor" class="col-form-label">Floor</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="number" id="floor" class="form-control" placeholder="Ex: 4">
+                            <div class="form-check">
+                                <input class="form-check-input shadow-none border-tilt" type="checkbox" id="isMoveInDatePossible">
+                                <label class="form-check-label cursor-pointer user-select-none text-tilt" for="isMoveInDatePossible">
+                                    (Is Elevator Available?)
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <label for="roomtype" class="col-form-label">Room Type</label>
+                        </div>
+                        <div class="col-9">
+                            <template id="sidoTemplate"></template>
+                            <div class="form-group">
+                                <select class="form-select" name="roomtype" id="roomtype">
+                                <option value="원룸">원룸</option>
+                                <option value="1.5룸">1.5룸</option>
+                                <option value="투룸">투룸</option>
+                                <option value="쓰리룸">쓰리룸</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- inclusions -->
+                <div class="col-12 col-md-6 col-xl-3">
+                    <div class="d-flex justify-content-between align-items-start flex-column h-100">
+                        <div class="row mt-4">
+                            <template id="inclusionTemp">
+                                
+                            </template>
+                            <div class="d-flex row gap-2">
+                                <div class="col-auto p-2 rounded-3 text-center"><img class="thumbnail" src="./vendors/imgs/room_option/ac.svg" alt=""></div>
+                                <div class="col-auto p-2 rounded-3 text-center"><img class="thumbnail" src="./vendors/imgs/room_option/bed.svg" alt=""></div>
+                                <div class="col-auto p-2 rounded-3 text-center"><img class="thumbnail" src="./vendors/imgs/room_option/cabinet.svg" alt=""></div>
+                                <div class="col-auto p-2 rounded-3 text-center"><img class="thumbnail" src="./vendors/imgs/room_option/chair.svg" alt=""></div>
+                                <div class="col-auto p-2 rounded-3 text-center"><img class="thumbnail" src="./vendors/imgs/room_option/lock.svg" alt=""></div>
+                                <div class="col-auto p-2 rounded-3 text-center"><img class="thumbnail" src="./vendors/imgs/room_option/microwave.svg" alt=""></div>
+                                <div class="col-auto p-2 rounded-3 text-center"><img class="thumbnail" src="./vendors/imgs/room_option/ref.svg" alt=""></div>
+                                <div class="col-auto p-2 rounded-3 text-center"><img class="thumbnail" src="./vendors/imgs/room_option/shoes.svg" alt=""></div>
+                                <div class="col-auto p-2 rounded-3 text-center"><img class="thumbnail" src="./vendors/imgs/room_option/sink.svg" alt=""></div>
+                                <div class="col-auto p-2 rounded-3 text-center"><img class="thumbnail" src="./vendors/imgs/room_option/speacker.svg" alt=""></div>
+                                <div class="col-auto p-2 rounded-3 text-center"><img class="thumbnail" src="./vendors/imgs/room_option/stove.svg" alt=""></div>
+                                <div class="col-auto p-2 rounded-3 text-center"><img class="thumbnail" src="./vendors/imgs/room_option/table.svg" alt=""></div>
+                            </div>
+                            
+                        </div>
+    
+                        <div class="d-flex justify-content-end align-items-center flex-row w-100">
+                            <button type="button" class="btn btn-tilt rounded-3 px-5 p mx-2" id="approveRoomBtn">Approve</button>
+                            <button type="button" class="btn btn-danger rounded-3 px-5 p" id="declineRoomBtn">Decline</button>
+                            <button type="button" class="btn btn-tilt rounded-3 px-5 p d-none" id="updateRoomBtn">Update Room</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- input fields // other -->
+        <section id="translatedSection" class="my-4 d-none">
+            <div class="row justify-content-end">
+                <div class="col-auto"><button class="btn btn-tilt" id="closeTranslatedBtn"><i class="fa fa-times" aria-hidden="true"></i></button></div>
+            </div>
+            <div class="row g-4 justify-content-center">                
+                <!-- title -->
+                <div class="col-12 col-md-6 col-xl-3">
+                    <div class="w-100 mb-3">
+                        <input type="hidden" id="tl-shopid" value="">
+                        <div class="w-100 d-flex justify-content-start align-items-center flex-row flex-nowrap">
+                            <h6 class="mb-0 lh-1 text-tilt fw-bold formTitle me-3">맛있는 고기에 솜씨를 더하다</h6>
+                            <button type="button" class="btn btn-tilt btn-sm rounded-pill px-3">Edit</button>
+                        </div>
+                    </div>
+                    <div class="row g-2">
+                        <!-- title -->
+                        <div class="col-3">
+                            <label for="" class="col-form-label">Title</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" id="tl-title" class="form-control" placeholder="Title">
+                        </div>
+                        <!-- sub-title -->
+                        <div class="col-3">
+                            <label for="tl-subtitle" class="col-form-label">Sub-Title</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" id="tl-subtitle" class="form-control" placeholder="Sub-Title">
+                        </div>
+                        <!-- address -->
+                        <div class="col-3">
+                            <label for="tl-address" class="col-form-label">Address</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" id="tl-address" class="form-control" placeholder="Address">
+                        </div>                        
+                        <div class="col-3">
+                            <label for="memo">Memo Here</label>
+                        </div>
+                        <div class="col-9">
+                            <textarea class="form-control border-0 bg-gray100" rows="3" placeholder="Shop Message Here" id="tl-memo"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end align-items-center flex-row w-100">
+                    <button type="button" class="btn btn-tilt rounded-3 px-5 p d-none" id="uploadTranslatedBtn">Save Translated </button>
+                    <button type="button" class="btn btn-tilt rounded-3 px-5 p d-none" id="updateTranslatedShopBtn">Update Translated</button>
+                </div>
+                
+            </div>
+        </section>
+
+        <!-- Room Translated Version -->
+        <section id="translatedSection" class="my-4 d-none">
+            <div class="row justify-content-end">
+                <div class="col-auto"><button class="btn btn-tilt" id="closeTranslatedBtn"><i class="fa fa-times" aria-hidden="true"></i></button></div>
+            </div>
+            <div class="row g-4 justify-content-center">                
+                <!-- title -->
+                <div class="col-12 col-md-6 col-xl-3">
+                    <div class="w-100 mb-3">
+                        <input type="hidden" id="tl-shopid" value="">
+                        <div class="w-100 d-flex justify-content-start align-items-center flex-row flex-nowrap">
+                            <h6 class="mb-0 lh-1 text-tilt fw-bold formTitle me-3">맛있는 고기에 솜씨를 더하다</h6>
+                            <button type="button" class="btn btn-tilt btn-sm rounded-pill px-3">Edit</button>
+                        </div>
+                    </div>
+                    <div class="row g-2">
+                        <!-- title -->
+                        <div class="col-3">
+                            <label for="" class="col-form-label">Front Memo</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" id="rfrontmemo" class="form-control" placeholder="Front Memo">
+                        </div>
+                        <!-- address -->
+                        <div class="col-3">
+                            <label for="tl-address" class="col-form-label">Address</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" id="tl-address" class="form-control" placeholder="Address">
+                        </div>                        
+                        <div class="col-3">
+                            <label for="memo">Memo Here</label>
+                        </div>
+                        <div class="col-9">
+                            <textarea class="form-control border-0 bg-gray100" rows="3" placeholder="Shop Message Here" id="tl-memo"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end align-items-center flex-row w-100">
+                    <button type="button" class="btn btn-tilt rounded-3 px-5 p d-none" id="uploadTranslatedBtn">Save Translated </button>
+                    <button type="button" class="btn btn-tilt rounded-3 px-5 p d-none" id="updateTranslatedShopBtn">Update Translated</button>
+                </div>
+                
+            </div>
+        </section>
+        
+        <!-- table section -->
+        <section id="massageTableSection" class="my-4 d-none">
+            <template id="rowTemplate">
+                <tr class="align-middle {{rowClass}}">
+                    <th><input type="checkbox" data-id="{{id}}" data-status="{{status}}" onClick="toggleCheckBoxDom(this)" class="data-checkbox"></th>
+                    <td onClick="columnSelectShopHandler(this)" data-id="{{id}}" role="button"><img class="thumbnail shadow rounded-3" src="{{thumbnail}}" alt="thumbnail"></td>
+                    <td onClick="columnSelectShopHandler(this)" data-id="{{id}}" role="button">{{title}}</td>
+                    <td onClick="columnSelectShopHandler(this)" data-id="{{id}}" role="button">{{subtitle}}</td>
+                    <td onClick="columnSelectShopHandler(this)" data-id="{{id}}" role="button">{{salary}}</td>
+                    <td onClick="columnSelectShopHandler(this)" data-id="{{id}}" role="button">{{address}}</td>
+                    <td onClick="columnSelectShopHandler(this)" data-id="{{id}}" role="button">{{workinfo}}</td>
+                    <td>
+                        <div class="row text-white text-center justify-content-start" id="{{langid}}">                            
+                        </div>
+                    </td>
+                    <!-- <td><a class="text-tilt thumbModal" data-id="1" role="button"><i class="fa fa-file-image-o fa-2x" aria-hidden="true"></i></a></td>
+                    <td><a class="text-tilt fileListModal" data-id="1" role="button"><i class="fa fa-files-o fa-2x" aria-hidden="true"></i></a></td> -->
+                    <td><a class="text-tilt statusBtn" onClick="updateStatusHandler(this)" data-status="{{status}}" data-id="{{id}}" role="button">
+                        <i class="fa-solid {{statIcon}} fa-2x" aria-hidden="true"></i></a></td>
+                    <td><a class="text-tilt editBtn" onClick="columnSelectShopHandler(this)" data-id="{{id}}" role="button">
+                        <i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></a></td>
+                    <td><a class="text-tilt deleteShopBtn" onClick="deleteShopHandler(this)" data-index="{{index}}" data-id="{{id}}" role="button">
+                        <i class="fa fa-times-circle-o fa-2x" aria-hidden="true"></i></a></td>
+                </tr>              
+            </template>
+    
+            <template id="languageTemp">
+                <div class="col-2 bg-tilt m-1 p-2 rounded-2 {{bg}} text-center" onClick="{{click}}" data-language="{{full}}" data-langid="{{code}}" data-shopId="{{shopId}}" role="button">{{language}}</div>
+            </template>
+            <div class="table-responsive">
+                <!-- topside -->
+                <div class="d-flex justify-content-center justify-content-xl-between align-items-center flex-row flex-wrap">
+                    <div class="d-flex justify-content-center justify-content-xl-start align-items-center flex-row flex-nowrap gap-2">
+                        <div class="col-auto"><button class="btn btn-tilt" onclick="multipleDeleteHandler(this)" id="deleteAll">Delete</button></div>
+                        <div class="col-auto"><button class="btn btn-tilt" onclick="multipleChangeStatusHandler(this)" id="deactivateAll" data-type="reviewing">Deactivate</button></div>
+                        <div class="col-auto"><button class="btn btn-tilt" onclick="multipleChangeStatusHandler(this)" id="activateAll" data-type="displaying">Activate</button></div>
+                    </div>
+                    <div class="d-flex justify-content-center justify-content-xl-end align-items-center flex-row flex-nowrap">
+                        <label for="areacode" class="col-form-label text-nowrap mx-3">Sort By</label>
+                        <select class="form-select" name="sort" id="sort">
+                            <option>Region</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- table -->
+                <table class="table mt-3" id="shopTable">
+                    <thead class="text-center">
+                        <tr>
+                            <th>
+                                <input type="checkbox" class="form-check-input border-tilt shadow-none" name="selectall" id="selectall" onClick="selectAllDom(this)">
+                            </th>
+                            <th>Images</th>
+                            <th>Shop Name</th>
+                            <th>Position</th>
+                            <th>Salary</th>
+                            <th>Location</th>
+                            <th>Working Hours</th>
+                            <th>Available Language</th>
+                            <th>Status</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                            <!-- <th></th>
+                            <th></th> -->
+                        </tr>
+                    </thead>
+                    <tbody id="shopDataCont" class="text-center">
+                                                    
+                    </tbody>
+                </table>
+            </div>
+
+            <template id="pagingTemp">
+                <li class="page-item  ">
+                    <a class="page-link link-opacity-25 text-tilt" onClick="selectPageHandler(this)" id="page{{pagenum}}" data-pagenum="{{pagenum}}" role="button">{{paging}}</a>
+                </li>
+            </template>
+
+            <nav class="mt-3 mt-xl-0">
+                <ul class="pagination justify-content-end" id="pagination"></ul>
+            </nav>
+        </section>
+
+        <section id="roomReviewTableSection" class="my-4 d-none">
+            <template id="rowTemplate">
+                <tr class="align-middle {{rowClass}}">
+                    <!-- <th><input type="checkbox" data-id="{{id}}" data-status="{{status}}" onclick="toggleCheckBoxDom(this)" class="data-revcheckbox"></th> -->
+                    <td onclick="columnSelectReviewHandler(this)" data-id="{{id}}" role="button"><img class="thumbnail shadow rounded-3" src="{{thumbnail}}" alt="thumbnail"></td>
+                    <td onclick="columnSelectReviewHandler(this)" data-id="{{id}}" role="button">{{deposit}}</td>
+                    <td onclick="columnSelectReviewHandler(this)" data-id="{{id}}" role="button">{{rent}}</td>
+                    <td onclick="columnSelectReviewHandler(this)" data-id="{{id}}" role="button">{{address}}</td>
+                    <td onclick="columnSelectReviewHandler(this)" data-id="{{id}}" role="button">{{estatename}}</td>
+                    <td onclick="columnSelectReviewHandler(this)" data-id="{{id}}" role="button">{{estatecontract}}</td>
+                    <td onclick="columnSelectReviewHandler(this)" data-id="{{id}}" role="button">{{salenumber}}</td>
+                </tr>              
+            </template>
+    
+            <template id="languageTemp">
+                <div class="col-2 bg-tilt m-1 p-2 rounded-2 {{bg}} text-center" onclick="{{click}}" data-language="{{full}}" data-langid="{{code}}" data-shopId="{{shopId}}" role="button">{{language}}</div>
+            </template>
+            <div class="table-responsive">
+                <!-- topside -->
+                <div class="d-flex justify-content-center justify-content-xl-between align-items-center flex-row flex-wrap">
+                    <!-- <div class="d-flex justify-content-center justify-content-xl-start align-items-center flex-row flex-nowrap gap-2">
+                        <div class="col-auto"><button class="btn btn-tilt" onclick="multipleDeleteHandler(this)" id="deleteAll">Delete</button></div>
+                        <div class="col-auto"><button class="btn btn-tilt" onclick="multipleChangeStatusHandler(this)" id="deactivateAll" data-type="reviewing">Deactivate</button></div>
+                        <div class="col-auto"><button class="btn btn-tilt" onclick="multipleChangeStatusHandler(this)" id="activateAll" data-type="displaying">Activate</button></div>
+                    </div> -->
+                    <div class="d-flex justify-content-center justify-content-xl-end align-items-center flex-row flex-nowrap">
+                        <label for="areacode" class="col-form-label text-nowrap mx-3">Sort By</label>
+                        <select class="form-select" name="sort" id="sort">
+                            <option>Region</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- table -->
+                <table class="table mt-3" id="reviewRoomTable">
+                    <thead class="text-center">
+                        <tr>
+                            <!-- <th>
+                                <input type="checkbox" class="form-check-input border-tilt shadow-none" name="selectall" id="selectallReview" onClick="selectAllDom(this)">
+                            </th> -->
+                            <th>Images</th>
+                            <th>Deposit</th>
+                            <th>Rent</th>
+                            <th>Address</th>
+                            <th>Estate Name</th>
+                            <th>Estate Contact</th>
+                            <th>Sale Number</th>                           
+                        </tr>
+                    </thead>
+                    <tbody id="shopDataCont" class="text-center">
+                        <tr class="align-middle {{rowClass}}">
+                            <!-- <th><input type="checkbox" data-id="{{id}}" data-status="{{status}}" onclick="toggleCheckBoxDom(this)" class="data-revcheckbox"></th> -->
+                            <td onclick="columnSelectShopHandler(this)" data-id="{{id}}" role="button"><img class="thumbnail shadow rounded-3" src="./vendors/imgs/thumbnail-default.svg" alt="thumbnail"></td>
+                            <td onclick="columnSelectShopHandler(this)" data-id="{{id}}" role="button">{{deposit}}</td>
+                            <td onclick="columnSelectShopHandler(this)" data-id="{{id}}" role="button">{{rent}}</td>
+                            <td onclick="columnSelectShopHandler(this)" data-id="{{id}}" role="button">{{address}}</td>
+                            <td onclick="columnSelectShopHandler(this)" data-id="{{id}}" role="button">{{estatename}}</td>
+                            <td onclick="columnSelectShopHandler(this)" data-id="{{id}}" role="button">{{estatecontract}}</td>
+                            <td onclick="columnSelectShopHandler(this)" data-id="{{id}}" role="button">{{salenumber}}</td>
+                        </tr> 
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="roomApproveTableSection" class="my-4 d-none">
+            <template id="approveRowTemplate">
+                <tr class="align-middle {{rowClass}}">
+                    <th><input type="checkbox" data-id="{{id}}" data-status="{{status}}" onClick="toggleCheckBoxDom(this)" class="data-approvecheckbox"></th>
+                    <td onclick="approveColumnSelectHandler(this)" data-id="{{id}}" role="button"><img class="thumbnail shadow rounded-3" src="{{thumbnail}}" alt="thumbnail"></td>
+                    <td onclick="approveColumnSelectHandler(this)" data-id="{{id}}" role="button">{{deposit}}</td>
+                    <td onclick="approveColumnSelectHandler(this)" data-id="{{id}}" role="button">{{rent}}</td>
+                    <td onclick="approveColumnSelectHandler(this)" data-id="{{id}}" role="button">{{address}}</td>
+                    <td onclick="approveColumnSelectHandler(this)" data-id="{{id}}" role="button">{{estateName}}</td>
+                    <td onclick="approveColumnSelectHandler(this)" data-id="{{id}}" role="button">{{estateContract}}</td>
+                    <td onclick="approveColumnSelectHandler(this)" data-id="{{id}}" role="button">{{sale Number}}</td>
+                    <td>
+                        <div class="row text-white text-center justify-content-start" id="{{langid}}"></div>
+                    </td>
+                    <!-- <td><a class="text-tilt thumbModal" data-id="1" role="button"><i class="fa fa-file-image-o fa-2x" aria-hidden="true"></i></a></td>
+                    <td><a class="text-tilt fileListModal" data-id="1" role="button"><i class="fa fa-files-o fa-2x" aria-hidden="true"></i></a></td> -->
+                    <td><a class="text-tilt statusBtn" onclick="updateStatusHandler(this)" data-status="{{status}}" data-id="{{id}}" role="button">
+                        <i class="fa-solid {{statIcon}} fa-2x" aria-hidden="true"></i></a></td>
+                    <td><a class="text-tilt deleteShopBtn" onclick="deleteShopHandler(this)" data-index="{{index}}" data-id="{{id}}" role="button">
+                        <i class="fa fa-times-circle-o fa-2x" aria-hidden="true"></i></a></td>
+                </tr>              
+            </template>
+    
+            <template id="approvelanguageTemp">
+                <div class="col-2 bg-tilt m-1 p-2 rounded-2 {{bg}} text-center" onclick="{{click}}" data-language="{{full}}" data-langid="{{code}}" data-shopId="{{shopId}}" role="button">{{language}}</div>
+            </template>
+            <div class="table-responsive">
+                <!-- topside -->
+                <div class="d-flex justify-content-center justify-content-xl-between align-items-center flex-row flex-wrap">
+                    <div class="d-flex justify-content-center justify-content-xl-start align-items-center flex-row flex-nowrap gap-2">
+                        <div class="col-auto"><button class="btn btn-tilt" onclick="multipleDeleteHandler(this)" id="deleteAll">Delete</button></div>
+                        <div class="col-auto"><button class="btn btn-tilt" onclick="multipleChangeStatusHandler(this)" id="deactivateAll" data-type="reviewing">Deactivate</button></div>
+                        <div class="col-auto"><button class="btn btn-tilt" onclick="multipleChangeStatusHandler(this)" id="activateAll" data-type="displaying">Activate</button></div>
+                    </div>
+                    <div class="d-flex justify-content-center justify-content-xl-end align-items-center flex-row flex-nowrap">
+                        <label for="areacode" class="col-form-label text-nowrap mx-3">Sort By</label>
+                        <select class="form-select" name="sort" id="sort">
+                            <option>Region</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- table -->
+                <table class="table mt-3" id="approveTable">
+                    <thead class="text-center">
+                        <tr>
+                            <th>
+                                <input type="checkbox" class="form-check-input border-tilt shadow-none" name="selectall" id="selectallAprrove" onClick="selectAllDom(this)">
+                            </th>
+                            <th>Images</th>
+                            <th>Deposit</th>
+                            <th>Rent</th>
+                            <th>Address</th>
+                            <th>Estate Name</th>
+                            <th>Estate Contact</th>
+                            <th>Sale Number</th>   
+                            <th>Available Language</th>
+                            <th>Status</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody id="shopDataCont" class="text-center">
+                        <tr class="align-middle {{rowClass}}">
+                            <th><input type="checkbox" data-id="{{id}}" data-status="{{status}}" onClick="toggleCheckBoxDom(this)" class="data-approvecheckbox"></th>
+                            <td onclick="approveColumnSelectHandler(this)" data-id="{{id}}" role="button"><img class="thumbnail shadow rounded-3" src="./vendors/imgs/thumbnail-default.svg" alt="thumbnail"></td>
+                            <td onclick="approveColumnSelectHandler(this)" data-id="{{id}}" role="button">{{deposit}}</td>
+                            <td onclick="approveColumnSelectHandler(this)" data-id="{{id}}" role="button">{{rent}}</td>
+                            <td onclick="approveColumnSelectHandler(this)" data-id="{{id}}" role="button">{{address}}</td>
+                            <td onclick="approveColumnSelectHandler(this)" data-id="{{id}}" role="button">{{estateName}}</td>
+                            <td onclick="approveColumnSelectHandler(this)" data-id="{{id}}" role="button">{{estateContract}}</td>
+                            <td onclick="approveColumnSelectHandler(this)" data-id="{{id}}" role="button">{{sale Number}}</td>
+                            <td>
+                                <div class="row text-white text-center justify-content-start" id="{{langid}}"></div>
+                            </td>
+                            <!-- <td><a class="text-tilt thumbModal" data-id="1" role="button"><i class="fa fa-file-image-o fa-2x" aria-hidden="true"></i></a></td>
+                            <td><a class="text-tilt fileListModal" data-id="1" role="button"><i class="fa fa-files-o fa-2x" aria-hidden="true"></i></a></td> -->
+                            <td><a class="text-tilt statusBtn" onclick="updateStatusHandler(this)" data-status="{{status}}" data-id="{{id}}" role="button">
+                                <i class="fa-solid fa-eye fa-2x" aria-hidden="true"></i></a></td>
+                            <td><a class="text-tilt deleteShopBtn" onclick="deleteShopHandler(this)" data-index="{{index}}" data-id="{{id}}" role="button">
+                                <i class="fa fa-times-circle-o fa-2x" aria-hidden="true"></i></a></td>
+                        </tr>               
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+    <!-- pop-up modal template -->
+    <template id="">
+        <div class="modal-body">
+  
+        </div>
+  
+        <div class="modal-footer p-0">
+          <button type="button" id="{{ btnId }}" class="btn rounded-0 w-50 m-0 py-3 border-end">
+            확인
+          </button> 
+          <button type="button" class="btn rounded-0 w-50 m-0 py-3" data-bs-dismiss="modal">
+            취소
+          </button>
+        </div>
+  
+    </template>
+    <!-- copy template here -->
+
+    <template id="alertPopTemplate">
+        <div class="modal-body">
+            <div class="alert alert-warning text-center" role="alert">{{message}}</div>
+        </div>  
+    </template>
+    <div class="modal  fade" id="globalModal" tabindex="-1" aria-labelledby="globalModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content ">
+            <div class="modal-header bg-danger text-white justify-content-center ">
+              <h5 class="modal-title modaltitle"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></h5>
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+  
+            <div id="modalContainer" >
+              
+            </div>
+            
+          </div>
+        </div>
+    </div>
+    <script src="./vendors/jquery/jquery-3.1.1.min.js"></script>
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="./vendors/fontawesome@latest/fontawesome.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+    <script src="./vendors/Glider.js-master/glider.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
+    <!-- <script src="https://unpkg.com/mustache@latest"></script> -->
+    <script src="./vendors/mustache.js"></script>
+    <script src="./assets/js/vendor.js"></script>
+    <script src="./assets/js/dom.js"></script>
+    <script src="./assets/js/handler.js"></script>
+    <script src="./assets/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+@font-face{
+    font-family: 'applesdgothic-regular';
+    src: url('../../vendors/fonts/apple-sd-gothic-neo/500_AppleSDGothicNeo-Regular.otf');
+    font-style: normal;
+}
+
+@font-face{
+    font-family: 'applesdgothic-bold';
+    src: url('../../vendors/fonts/apple-sd-gothic-neo/700_AppleSDGothicNeo-Bold.otf');
+    font-style: bold;
+}
+
+html,
+body{
+    font-family: 'applesdgothic-regular';
+}
+
+button{
+    font-family: 'applesdgothic-bold' !important;
+}
+.img-thumbnail{
+    width: 10vw;
+    height: 10vw;
+}
+section{
+    /* border: solid 1px; */
+    min-height: 20vh;
+}
+/* div{
+    border: solid 1px red;
+} */
+#memo{
+    height: 130px;
+    resize: none;
+    background-color: #F6F6F6;
+}
+.form-select{
+    border: none !important;
+}
+input[type=text], input[type=number], input[type=time], input[type=file], textarea, #massageSectionEle .form-select{
+    /* border-color: #179099; */
+    background-color: #F6F6F6;
+    border: none !important
+}
+.text-tilt{
+    color: #0C4347 !important;
+}
+.bg-tilt{
+    background-color: #0C4347;
+    color: white !important;
+}
+.btn-tilt{
+    background-color: #0C4347;
+    color: white;    
+}
+.btn-tilt:hover{
+    border: solid 1px #0C4347;
+    color: #0C4347;
+}
+.thumbnail{
+    width: 4rem;
+    height: 4rem;
+}
+table thead{
+    background-color: rgba(12, 67, 71, 10%);
+}
+.preview{
+    width: 16vw !important;
+    height: 32vh !important;
+}
+/* div{
+    border:solid 1px;
+} */
+section:first-child{
+    min-height:auto;
+}
+.thumbnailsImg{
+    width: 4rem !important;
+    height: 3rem !important;
+}
+/* table td{
+    border:solid 1px;
+} */
+.formTitle{
+    letter-spacing: 0.2rem;
+}

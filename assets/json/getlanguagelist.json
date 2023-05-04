@@ -1,0 +1,26 @@
+{
+  "status": "OK",
+  "message": "success",
+  "data": [
+    {
+      "id": "0",
+      "language": "korean"
+    },
+    {
+      "id": "1",
+      "language": "vietnam"
+    },
+    {
+      "id": "2",
+      "language": "russian"
+    },
+    {
+      "id": "3",
+      "language": "english"
+    },
+    {
+      "id": "4",
+      "language": "thai"
+    }
+  ]
+}

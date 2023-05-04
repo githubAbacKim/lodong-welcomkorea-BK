@@ -1,0 +1,26 @@
+{
+    "status": "OK",
+    "message": "success",
+    "data": [
+      {
+        "id": 0,
+        "shopType": "massage"
+      },
+      {
+        "id": 1,
+        "shopType": "hotel"
+      },
+      {
+        "id": 2,
+        "shopType": "restaurant"
+      },
+      {
+        "id": 3,
+        "shopType": "farm"
+      },
+      {
+        "id": 4,
+        "shopType": "factory"
+      }
+    ]
+  }

@@ -1,0 +1,102 @@
+{
+    "status": "OK",
+    "message": "shop filtered by sidoCode",
+    "data": {
+      "totalPages": 2,
+      "room": [
+        {
+          "id": "6a104435-9a42-4527-a6b9-89c5dc064d06",
+          "title": "foodShop",
+          "subTitle": "hello",
+          "salary": 1500000,
+          "address": "kyung-gi-do",
+          "holiday": 2,
+          "endWorkingTime": "10:00:00",
+          "startWorkingTime": "05:00:00",
+          "createdAt": "2023-04-14 19:06:24",
+          "sidoCode": "11",
+          "status": "reviewing",
+          "photo": null,
+          "thumbnail": "http://210.99.223.38:13405/api/file/shop-photo/thumbnail?shopId=6a104435-9a42-4527-a6b9-89c5dc064d06&imageId=97278d64-ec4e-4bdc-a48d-9021693775aa",
+          "languages": null,
+          "language": null,
+          "memo": null
+        },
+        {
+          "id": "8fe0d5c4-8fed-4957-bf28-ecd4917d49ea",
+          "title": "foodShop",
+          "subTitle": "hello",
+          "salary": 1500000,
+          "address": "kyung-gi-do",
+          "holiday": 2,
+          "endWorkingTime": "10:00:00",
+          "startWorkingTime": "05:00:00",
+          "createdAt": "2023-04-14 18:59:44",
+          "sidoCode": "11",
+          "status": "reviewing",
+          "photo": null,
+          "thumbnail": null,
+          "languages": null,
+          "language": null,
+          "memo": null
+        },
+        {
+          "id": "76248a2f-9255-4eaf-ab1d-f50e8a9eb013",
+          "title": "foodShop",
+          "subTitle": "hello",
+          "salary": 1500000,
+          "address": "kyung-gi-do",
+          "holiday": 2,
+          "endWorkingTime": "10:00:00",
+          "startWorkingTime": "05:00:00",
+          "createdAt": "2023-04-14 18:21:46",
+          "sidoCode": "11",
+          "status": "reviewing",
+          "photo": null,
+          "thumbnail": null,
+          "languages": null,
+          "language": null,
+          "memo": null
+        },
+        {
+          "id": "7208ee92-ec0e-423d-aa3e-7130d3af6451",
+          "title": "foodShop",
+          "subTitle": "hello",
+          "salary": 1500000,
+          "address": "kyung-gi-do",
+          "holiday": 2,
+          "endWorkingTime": "00:00:05",
+          "startWorkingTime": "00:00:10",
+          "createdAt": "2023-04-14 06:58:52",
+          "sidoCode": "11",
+          "status": "reviewing",
+          "photo": null,
+          "thumbnail": null,
+          "languages": [
+            "thai"
+          ],
+          "language": null,
+          "memo": null
+        },
+        {
+          "id": "7c8731d3-9c7d-4a00-a2a2-5229483e4edb",
+          "title": "foodShop",
+          "subTitle": "hello",
+          "salary": 1500000,
+          "address": "kyung-gi-do",
+          "holiday": 2,
+          "endWorkingTime": "00:00:05",
+          "startWorkingTime": "00:00:10",
+          "createdAt": "2023-04-14 04:33:27",
+          "sidoCode": "11",
+          "status": "reviewing",
+          "photo": null,
+          "thumbnail": null,
+          "languages": null,
+          "language": null,
+          "memo": null
+        }
+      ],
+      "totalElements": 7
+    }
+  }
