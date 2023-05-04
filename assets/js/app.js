@@ -18,14 +18,16 @@ let imagesArr = [];
 let showEleArr = [];
 let hideEleArr = [];
 
+let mustacheRoomService = [];
+
 const optionArr = [
-    {option:"ac",src:"./vendors/imgs/room_option/ac.svg"},
+    {option:"airConditioner",src:"./vendors/imgs/room_option/ac.svg"},
     {option:"bed",src:"./vendors/imgs/room_option/bed.svg"},
     {option:"cabinet",src:"./vendors/imgs/room_option/cabinet.svg"},
     {option:"chair",src:"./vendors/imgs/room_option/chair.svg"},
     {option:"lock",src:"./vendors/imgs/room_option/lock.svg"},
     {option:"microwave",src:"./vendors/imgs/room_option/microwave.svg"},
-    {option:"ref",src:"./vendors/imgs/room_option/ref.svg"},
+    {option:"refrigerator",src:"./vendors/imgs/room_option/ref.svg"},
     {option:"shoes",src:"./vendors/imgs/room_option/shoes.svg"},
     {option:"sink",src:"./vendors/imgs/room_option/sink.svg"},
     {option:"speaker",src:"./vendors/imgs/room_option/speaker.svg"},
@@ -161,6 +163,23 @@ const tlShopId = $('#tl-shopid');
 const tlMemo = $('#tl-memo');
 const tlSalary = $('#tl-salary');
 // let table = new DataTable('#shopTable');
+
+// room
+const inclusionTemp = $('#inclusionTemp');
+const inclusionCont = $('#inclusionCont');
+
+const reviewRowTemp = $('#reviewRowTemp');
+const reviewTableCont = $('#reviewTableCont');
+
+const approveRowTemplate = $('#approveRowTemplate');
+const approveTableCont = $('#approveTableCont');
+
+const approveRoomBtn = $('#approveRoomBtn');
+const declineRoomBtn = $('#declineRoomBtn');
+const updateRoomBtn = $('#updateRoomBtn');
+
+const roomSlideTemp = $('#roomSlideTemp');
+const roomSliderHotelCont = $('#roomSliderHotelCont');
 
 // event Handler functions
 timePickerDom();

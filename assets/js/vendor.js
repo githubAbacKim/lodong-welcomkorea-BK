@@ -384,7 +384,7 @@
         });
     };
 
-    const displaySelectedImagesVendor = () =>{
+    const displaySelectedImagesVendor = () =>{        
         console.log('imagesArr',imagesArr)
         sliderCont.empty();
         $.each(imagesArr,function(i,d){
@@ -395,6 +395,20 @@
                 'active': active
             }            
             mustacheTemplating(sliderCont,slideTemp,displayData);
+        })
+    }
+
+    const displaySelectedRoomsImgVendor = () =>{        
+        console.log('imagesArr',imagesArr)
+        roomSliderHotelCont.empty();
+        $.each(imagesArr,function(i,d){
+            let active = (i === 0) ? 'active' : '';
+            let displayData = {
+                'name':d.name,
+                'src':d.src,
+                'active': active
+            }            
+            mustacheTemplating(roomSliderHotelCont,roomSlideTemp,displayData);
         })
     }
 
@@ -440,6 +454,27 @@
             mustacheTemplating(commissionCont,commissionTemp,newData);
         })
         
+    }
+
+    const appendToOptionList = (data) =>{
+        $.each(data,(i,d)=>{
+            const newCommission = {
+                "serviceType": d.serviceType,
+                "serviceTime": changeTimeFormat(d.serviceTime),
+                "servicePrice": parseInt(d.servicePrice)
+            }
+            commissionServicesArr.push(newCommission)
+            let id = mustacheServicesArr.length;
+            const newData = {
+                "serviceType": d.serviceType,
+                "serviceTime": changeTimeFormat(d.serviceTime),
+                "servicePrice": formatMoney(d.servicePrice),
+                "id": i,
+                "idname": `deleteCommissionBtn${i}`
+            }
+            mustacheServicesArr.push(newData)
+            mustacheTemplating(commissionCont,commissionTemp,newData);
+        })
     }
 
     const updateStatusVendor = (data,url,element) =>{
@@ -560,7 +595,7 @@
                 'status':d.status,
                 'statIcon': icon,
                 'rowClass': rowClass,
-                ' index':i
+                'index':i
             };        
             mustacheTemplating(tableBodyCont,tableRowTempEle,data);
 
@@ -765,6 +800,111 @@
 
     const cb_reviewRoomTable = (response) =>{
         let data =  response.data.room;
+        reviewTableCont.empty();
+        $.each(data,(i,d)=>{
+            const data = {
+                "id":d.roomId,
+                "frontMemo": d.frontMemo,
+                "deposit": d.deposit,
+                "rent": d.rent,
+                "address": d.address,
+                "status": d.status,
+                "createAt": d.createAt,
+                "photoPath": d.photoPath,
+                "roomOptionId": d.roomOptionId,
+                "isPosted": d.isPosted,
+                "saleNumber": d.saleNumber,
+                "ownerNumber": d.ownerNumber
+            }
+            mustacheTemplating(reviewTableCont,reviewRowTemp,data);
+        })
+    }
 
+    const cb_roomListTable = (response) =>{
+        let data = response.data.room
+        approveTableCont.empty();
+        $.each(data,(i,d)=>{
+            const data = {
+                "roomId": d.roomId,
+                "frontMemo": d.frontMemo,
+                "deposit": d.deposit,
+                "rent": d.rent,
+                "address": d.address,
+                "status": d.status,
+                "createAt": d.createAt,
+                "photoPath": d.photoPath,
+                "roomOptionId": d.roomOptionId,
+                "isPosted": d.isPosted,
+                "saleNumber": d.saleNumber,
+                "ownerNumber": d.ownerNumber
+              }
+            mustacheTemplating(approveTableCont, approveRowTemplate,data);
+        })
+    }
 
+    const cb_getRoomDetails = (response) =>{
+        let data = response.data.roomTranslationDto
+        let optionArr = [];
+        const inputdata = {
+            "id": data.id,
+            "userId": data.userId,
+            "frontMemo": data.frontMemo,
+            "deposit": data.deposit,
+            "rent": data.rent,
+            "address": data.address,
+            "liveInDate": data.liveInDate,
+            "isNowLiveIn": data.isNowLiveIn,
+            "contractEndYear": data.contractEndYear,
+            "contractEndMonth": data.contractEndMonth,
+            "floor": data.floor,
+            "roomType": data.roomType,
+            "size": data.size,
+            "sizeOption": data.sizeOption,
+            "memo": data.memo
+        }
+        $('#roomtitle').val(data.frontMemo);
+        $('#roomaddress').val(data.address);
+        $('#roommovedate').data(data.liveInDate);
+        $('#isMoveInDatePossible').prop('checked',isNowLiveIn);
+        $('#roominfo').val(data.memo);
+        $('#roomdeposit').val(data.deposit);
+        $('#roomrent').val(data.rent);
+        $('#roomyear').val(data.contractEndYear);
+        $('#roommonth').val(data.contractEndMonth);
+        $('#roomarea').val(data.size);
+        $('#floor').val(data.floor);
+        $('#elevator').prop('checked',elevator);
+        $('#roomtyperooms').val(data.roomType);
+
+        let refclass = (data.refrigerator === true) ? "opacity-100" : "opacity-25";
+        let acclass = (data.airConditioner === true) ? "opacity-100" : "opacity-25";
+        let washingclass = (data.washingMachine === true) ? "opacity-100" : "opacity-25";
+        let sinkclass = (data.sink === true) ? "opacity-100" : "opacity-25";
+        let bedclass = (data.bed === true) ? "opacity-100" : "opacity-25";
+        let gasStoveclass = (data.gasStove === true) ? "opacity-100" : "opacity-25";
+        
+        const optionlist = [
+            {name:'refrigerator',isTrue:data.refrigerator, optionStat:refclass, photoPath:"./vendors/imgs/room_option/ref.svg"},
+            {name:'washingMachine',isTrue:data.washingMachine, optionStat:washingclass, photoPath:"./vendors/imgs/room_option/washing.svg"},
+            {name:'sink',isTrue:data.sink, optionStat:sinkclass, photoPath:"./vendors/imgs/room_option/sink.svg"},
+            {name:'airConditioner',isTrue:data.airConditioner, optionStat:acclass, photoPath:"./vendors/imgs/room_option/ac.svg"},
+            {name:'bed',isTrue:data.bed, optionStat:bedclass, photoPath:"./vendors/imgs/room_option/bed.svg"},
+            {name:'gasStove',isTrue:data.gasStove, optionStat:gasStoveclass, photoPath:"./vendors/imgs/room_option/stove.svg"}
+        ]
+
+        $.each(optionArr,(i,d)=>{
+            const newOPtionData = {
+                
+            }
+
+            mustacheTemplating(inclusionCont,inclusionTemp,newOPtionData);
+        })
+
+        let thumb = {'name':'thumbnail','src':data.photoThumbnail}   
+        $.each(data.photos,function(i,d){
+            thumb = {'name':'files','src':d}
+            imagesArr.push(thumb)
+        })
+
+        displaySelectedRoomsImgVendor();
     }

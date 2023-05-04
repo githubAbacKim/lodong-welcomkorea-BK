@@ -46,7 +46,8 @@
     if(section === "massage"){
 
         showEleArr = [sectionTitleH4,massageSection,uploadShopButton,massageTableSection];
-        hideEleArr = [updateShopButton,updateTranslatedShopButton,translatedSection,otherSection,languageSelect];
+        hideEleArr = [updateShopButton,updateTranslatedShopButton,translatedSection,otherSection,
+          languageSelect,roomReviewTableSection,roomApproveTableSection];
         hideShowEleDom();
         
         sectionTitleH4.text('Shop Information');

@@ -446,9 +446,31 @@ const editRoomHandler = () =>{
 }
 
 const loadReviewRoomHandler = () =>{
-    // load 
+    // load default view when hotel is selected
 }
 
-const selectRoomLanguageHandler = (element) =>{}
+// select language
+const selectRoomLanguageHandler = (element) =>{
 
-const columnSelectReviewHandler = () =>{}
+}
+
+// handler for column click in review room
+const columnSelectReviewHandler = (element) =>{
+
+}
+
+const approveColumnSelectHandler = (element) =>{
+
+}
+
+const loadDefaultView = () =>{
+    let section = shoptypeSelect.val();
+
+    if(section === "massage"){
+
+    }else if(section !== "massage" && section !== ""){
+        // load review list
+    }else{
+        
+    }
+}
