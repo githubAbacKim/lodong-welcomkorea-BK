@@ -30,7 +30,7 @@
                     <select class="form-select" id="shopTypeSelect" aria-label="Default select example">                                            
                     </select>
                 </div>
-                <div id="shopOptions">
+                <div id="shopOptions" class="d-none">
                     <template id="languageSelectTemp">
                         <option value="{{code}}">{{language}}</option>
                     </template>
@@ -392,31 +392,33 @@
                 </div>
             </div>
         </section>
-
         <!-- input fields // other -->
         <section id="otherSectionEle" class="my-4 d-none">
-            <div class="row justify-content-end">                
-                <div class="d-flex justify-content-start align-items-center flex-row gap-2">
-                    <button type="button" onclick="reviewRoomHandler(this)" class="btn btn-tilt" id="addNewPositionBtn">
-                        <div class="d-flex justify-content-center align-items-center flex-row flex-nowrap">
-                            <i class="fa-solid fa-eye"></i>
-                            <span class="text-nowrap ms-2 mt-1">Review Room</span>
-                        </div>
-                    </button>
-                    <button type="button" onclick="editRoomHandler(this)" class="btn btn-tilt" id="addNewPositionBtn">
-                        <div class="d-flex justify-content-center align-items-center flex-row flex-nowrap">
-                            <i class="fa-solid fa-pencil"></i>
-                            <span class="text-nowrap ms-2 mt-1">Edit Room</span>
-                        </div>
-                    </button>
-                </div>
-    
-                <!-- right side -->
+            <!-- roomViewOption -->
+            <div class="row justify-content-end" id="roomViewOption">
                 <div class="d-flex justify-content-end align-items-center flex-row">
-                    <div class="col-auto"><button class="btn btn-tilt" id="closeOtherSectionBtn"><i class="fa fa-times" aria-hidden="true"></i></button></div>    
+                    <div class="d-flex col-6 gap-2">
+                        <button type="button" onclick="reviewRoomHandler(this)" class="btn btn-tilt" id="addNewPositionBtn">
+                            <div class="d-flex justify-content-center align-items-center flex-row flex-nowrap">
+                                <i class="fa-solid fa-eye"></i>
+                                <span class="text-nowrap ms-2 mt-1">Review Room</span>
+                            </div>
+                        </button>
+                        <button type="button" onclick="editRoomHandler(this)" class="btn btn-tilt" id="addNewPositionBtn">
+                            <div class="d-flex justify-content-center align-items-center flex-row flex-nowrap">
+                                <i class="fa-solid fa-pencil"></i>
+                                <span class="text-nowrap ms-2 mt-1">Edit Room</span>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="d-flex justify-content-end col-6">
+                        <div class="col-auto"><button class="btn btn-tilt" id="closeOtherSectionBtn"><i class="fa fa-times" aria-hidden="true"></i></button></div>
+                    </div>
                 </div>
             </div>
-            <div class="row g-4">
+
+            <!-- roomForm -->
+            <div class="row g-4 d-none" id="roomForm">
                 <!-- images section -->
                 <div class="col-12 col-md-6 col-xl-3">
                     <div class="main-thumb img-holder w-100 shadow rounded-3 overflow-hidden p-3" style="height: 320px;">
@@ -451,7 +453,7 @@
                         </div> -->
                         
                         <div id="carouselExample" class="carousel slide">
-                            <div class="carousel-inner text-center" id="roomSliderHotelCont">
+                            <div class="carousel-inner text-center" id="roomSliderCont">
                             </div>
                             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
                                 <span class="btn btn-sm btn-tilt rounded-pill">
@@ -485,13 +487,13 @@
                 <!-- title -->
                 <div class="col-12 col-md-6 col-xl-3">
                     <div class="w-100 mb-3">
-                        <input type="hidden" id="roomid" value="">
+                        <input type="hidden" id="froomid" value="">
                         <div class="w-100 d-flex justify-content-start align-items-center flex-row flex-nowrap">
                             <h6 class="mb-0 lh-1 text-tilt fw-bold formTitle me-3">맛있는 고기에 솜씨를 더하다</h6>
                             <button type="button" class="btn btn-tilt btn-sm rounded-pill px-3">Edit</button>
                         </div>
                     </div>
-                    
+
                     <div class="row g-2">
                         <!-- title -->
                         <div class="col-3">
@@ -499,31 +501,6 @@
                         </div>
                         <div class="col-9">
                             <input type="text" id="roomtitle" class="form-control" placeholder="Title">
-                        </div>
-                        <!-- sido code -->
-                        <div class="col-3">
-                            <label for="roomsidocode" class="col-form-label">Sido Code</label>
-                        </div>
-                        <div class="col-9">
-                            <template id="sidoTemplate">
-                                <option value="{{sidoCode}}">{{sidoName}}</option>
-                            </template>
-                            <div class="form-group">
-                                <select class="form-select bg-gray100 shadow-none outline-0" name="roomsidocode" id="roomsidocode"> </select>
-                            </div>
-                        </div>
-                        
-                        <!-- city -->
-                        <div class="col-3">
-                            <label for="sidocode" class="col-form-label">City</label>
-                        </div>
-                        <div class="col-9">
-                            <template id="cityTemplate">
-                                <option value="{{city}}">{{city}}</option>
-                            </template>
-                            <div class="form-group">
-                                <select class="form-select bg-gray100 shadow-none outline-0" name="roomcity" id="roomcity"> </select>
-                            </div>
                         </div>
                         <!-- address -->
                         <div class="col-3">
@@ -571,7 +548,7 @@
                             <button type="button" class="btn btn-tilt btn-sm rounded-pill px-3">Edit</button>
                         </div>
                     </div>
-
+                    
                     <div class="row g-2">
                         <!-- deposit -->
                         <div class="col-3">
@@ -622,7 +599,7 @@
                             </div>
                         </div>
                         <!-- area -->
-                        <div class="row mt-5">
+                        <div class="row mt-2">
                             <div class="col-3">
                                 <label for="roomarea" class="col-form-label">Area Size</label>
                             </div>
@@ -663,6 +640,7 @@
                         </div>
                     </div>
                 </div>
+                
                 <!-- inclusions -->
                 <div class="col-12 col-md-6 col-xl-3">
                     <div class="d-flex justify-content-between align-items-start flex-column h-100">
@@ -677,9 +655,20 @@
                                     </div>
                                 </div>
                             </template>
-                            <div class="d-flex row gap-2" id="inclusionContainer">
+                            <div class="d-flex row gap-2" id="inclusionCont">
                                 <!-- generate list here -->
-                                
+                                <div class="col-auto p-2 rounded-3 text-center"><img class="thumbnail" src="./vendors/imgs/room_option/ac.svg" alt=""></div>
+                                <div class="col-auto p-2 rounded-3 text-center"><img class="thumbnail" src="./vendors/imgs/room_option/bed.svg" alt=""></div>
+                                <div class="col-auto p-2 rounded-3 text-center"><img class="thumbnail" src="./vendors/imgs/room_option/cabinet.svg" alt=""></div>
+                                <div class="col-auto p-2 rounded-3 text-center"><img class="thumbnail" src="./vendors/imgs/room_option/chair.svg" alt=""></div>
+                                <div class="col-auto p-2 rounded-3 text-center"><img class="thumbnail" src="./vendors/imgs/room_option/lock.svg" alt=""></div>
+                                <div class="col-auto p-2 rounded-3 text-center"><img class="thumbnail" src="./vendors/imgs/room_option/microwave.svg" alt=""></div>
+                                <div class="col-auto p-2 rounded-3 text-center"><img class="thumbnail" src="./vendors/imgs/room_option/ref.svg" alt=""></div>
+                                <div class="col-auto p-2 rounded-3 text-center"><img class="thumbnail" src="./vendors/imgs/room_option/shoes.svg" alt=""></div>
+                                <div class="col-auto p-2 rounded-3 text-center"><img class="thumbnail" src="./vendors/imgs/room_option/sink.svg" alt=""></div>
+                                <div class="col-auto p-2 rounded-3 text-center"><img class="thumbnail" src="./vendors/imgs/room_option/speacker.svg" alt=""></div>
+                                <div class="col-auto p-2 rounded-3 text-center"><img class="thumbnail" src="./vendors/imgs/room_option/stove.svg" alt=""></div>
+                                <div class="col-auto p-2 rounded-3 text-center"><img class="thumbnail" src="./vendors/imgs/room_option/table.svg" alt=""></div>
                             </div>
 
                         </div>
@@ -749,15 +738,15 @@
         </section>
 
         <!-- Room Translated Version -->
-        <section id="translatedSection" class="my-4 d-none">
+        <section id="translatedRoomSection" class="my-4 d-none">
             <div class="row justify-content-end">
-                <div class="col-auto"><button class="btn btn-tilt" id="closeTranslatedBtn"><i class="fa fa-times" aria-hidden="true"></i></button></div>
+                <div class="col-auto"><button class="btn btn-tilt" id="closeRoomTranslatedBtn"><i class="fa fa-times" aria-hidden="true"></i></button></div>
             </div>
             <div class="row g-4 justify-content-center">                
                 <!-- title -->
                 <div class="col-12 col-md-6 col-xl-3">
                     <div class="w-100 mb-3">
-                        <input type="hidden" id="tl-shopid" value="">
+                        <input type="hidden" id="rtlroomid" value="">
                         <div class="w-100 d-flex justify-content-start align-items-center flex-row flex-nowrap">
                             <h6 class="mb-0 lh-1 text-tilt fw-bold formTitle me-3">맛있는 고기에 솜씨를 더하다</h6>
                             <button type="button" class="btn btn-tilt btn-sm rounded-pill px-3">Edit</button>
@@ -769,28 +758,48 @@
                             <label for="" class="col-form-label">Front Memo</label>
                         </div>
                         <div class="col-9">
-                            <input type="text" id="rfrontmemo" class="form-control" placeholder="Front Memo">
+                            <input type="text" id="rtlfrontmemo" class="form-control" placeholder="Front Memo">
                         </div>
                         <!-- address -->
                         <div class="col-3">
-                            <label for="tl-address" class="col-form-label">Address</label>
+                            <label for="rtladdress" class="col-form-label">Address</label>
                         </div>
                         <div class="col-9">
-                            <input type="text" id="tl-address" class="form-control" placeholder="Address">
+                            <input type="text" id="rtladdress" class="form-control" placeholder="Address">
                         </div>                        
                         <div class="col-3">
-                            <label for="memo">Memo Here</label>
+                            <label for="rtlmemo">Memo Here</label>
                         </div>
                         <div class="col-9">
-                            <textarea class="form-control border-0 bg-gray100" rows="3" placeholder="Shop Message Here" id="tl-memo"></textarea>
+                            <textarea class="form-control border-0 bg-gray100" rows="3" placeholder="Shop Message Here" id="rtlmemo"></textarea>
                         </div>
                     </div>
+                    
                 </div>
                 <div class="d-flex justify-content-end align-items-center flex-row w-100">
                     <button type="button" class="btn btn-tilt rounded-3 px-5 p d-none" id="uploadTranslatedBtn">Save Translated </button>
                     <button type="button" class="btn btn-tilt rounded-3 px-5 p d-none" id="updateTranslatedShopBtn">Update Translated</button>
                 </div>
                 
+            </div>
+        </section>
+
+        <section id="roomLoginSection" class="my-4 d-none">
+            <div class="container">
+                <div class="row justify-content-center">
+                  <div class="col-md-6 col-lg-4">
+                      <h2 class="text-center mb-4">Login</h2>
+                      <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="username" class="form-control" id="username" placeholder="Username">
+                      </div>
+                      <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" placeholder="Enter password">
+                      </div>
+                      <button type="submit" onclick="roomLoginHandler()" class="btn btn-tilt w-100">Login</button>
+                  </div>
+                </div>
             </div>
         </section>
         
@@ -865,16 +874,6 @@
                     </tbody>
                 </table>
             </div>
-
-            <template id="pagingTemp">
-                <li class="page-item  ">
-                    <a class="page-link link-opacity-25 text-tilt" onClick="selectPageHandler(this)" id="page{{pagenum}}" data-pagenum="{{pagenum}}" role="button">{{paging}}</a>
-                </li>
-            </template>
-
-            <nav class="mt-3 mt-xl-0">
-                <ul class="pagination justify-content-end" id="pagination"></ul>
-            </nav>
         </section>
 
         <section id="roomReviewTableSection" class="my-4 d-none">
@@ -882,13 +881,12 @@
                 <tr class="align-middle {{rowClass}}">
                     <!-- <th><input type="checkbox" data-id="{{id}}" data-status="{{status}}" onclick="toggleCheckBoxDom(this)" class="data-revcheckbox"></th> -->
                     <td onclick="columnSelectReviewHandler(this)" data-id="{{roomId}}" role="button"><img class="thumbnail shadow rounded-3" src="{{thumbnail}}" alt="thumbnail"></td>
-                    <td onclick="columnSelectReviewHandler(this)" data-id="{{roomId}}" role="button">{{frontMemo}}</td>
                     <td onclick="columnSelectReviewHandler(this)" data-id="{{roomId}}" role="button">{{deposit}}</td>
                     <td onclick="columnSelectReviewHandler(this)" data-id="{{roomId}}" role="button">{{rent}}</td>
                     <td onclick="columnSelectReviewHandler(this)" data-id="{{roomId}}" role="button">{{address}}</td>
-                    <td onclick="columnSelectReviewHandler(this)" data-id="{{roomId}}" role="button">{{estatename}}</td>
-                    <td onclick="columnSelectReviewHandler(this)" data-id="{{roomId}}" role="button">{{ownerNumber}}</td>
-                    <td onclick="columnSelectReviewHandler(this)" data-id="{{roomId}}" role="button">{{salenumber}}</td>
+                    <td onclick="columnSelectReviewHandler(this)" data-id="{{roomId}}" role="button">{{estateName}}</td>
+                    <td onclick="columnSelectReviewHandler(this)" data-id="{{roomId}}" role="button">{{estateContact}}</td>
+                    <td onclick="columnSelectReviewHandler(this)" data-id="{{roomId}}" role="button">{{saleNumber}}</td>
                 </tr>              
             </template>
     
@@ -916,7 +914,6 @@
                                 <input type="checkbox" class="form-check-input border-tilt shadow-none" name="selectall" id="selectallReview" onClick="selectAllDom(this)">
                             </th> -->
                             <th>Images</th>
-                            <th>Title</th>
                             <th>Deposit</th>
                             <th>Rent</th>
                             <th>Address</th>
@@ -936,21 +933,21 @@
             <template id="approveRowTemplate">
                 <tr class="align-middle {{rowClass}}">
                     <th><input type="checkbox" data-id="{{roomId}}" data-status="{{status}}" onClick="toggleCheckBoxDom(this)" class="data-approvecheckbox"></th>
-                    <td onclick="approveColumnSelectHandler(this)" data-id="{{roomId}}" role="button"><img class="thumbnail shadow rounded-3" src="{{thumbnail}}" alt="thumbnail"></td>
-                    <td onclick="approveColumnSelectHandler(this)" data-id="{{roomId}}" role="button">{{deposit}}</td>
-                    <td onclick="approveColumnSelectHandler(this)" data-id="{{roomId}}" role="button">{{rent}}</td>
-                    <td onclick="approveColumnSelectHandler(this)" data-id="{{roomId}}" role="button">{{address}}</td>
-                    <td onclick="approveColumnSelectHandler(this)" data-id="{{roomId}}" role="button">{{estateName}}</td>
-                    <td onclick="approveColumnSelectHandler(this)" data-id="{{roomId}}" role="button">{{estateContract}}</td>
-                    <td onclick="approveColumnSelectHandler(this)" data-id="{{roomId}}" role="button">{{saleNumber}}</td>
+                    <td onclick="columnSelectApproveHandler(this)" data-id="{{roomId}}" role="button"><img class="thumbnail shadow rounded-3" src="{{thumbnail}}" alt="thumbnail"></td>
+                    <td onclick="columnSelectApproveHandler(this)" data-id="{{roomId}}" role="button">{{deposit}}</td>
+                    <td onclick="columnSelectApproveHandler(this)" data-id="{{roomId}}" role="button">{{rent}}</td>
+                    <td onclick="columnSelectApproveHandler(this)" data-id="{{roomId}}" role="button">{{address}}</td>
+                    <td onclick="columnSelectApproveHandler(this)" data-id="{{roomId}}" role="button">{{estateName}}</td>
+                    <td onclick="columnSelectApproveHandler(this)" data-id="{{roomId}}" role="button">{{estateContact}}</td>
+                    <td onclick="columnSelectApproveHandler(this)" data-id="{{roomId}}" role="button">{{saleNumber}}</td>
                     <td>
                         <div class="row text-white text-center justify-content-start" id="{{langid}}"></div>
                     </td>
                     <!-- <td><a class="text-tilt thumbModal" data-id="1" role="button"><i class="fa fa-file-image-o fa-2x" aria-hidden="true"></i></a></td>
                     <td><a class="text-tilt fileListModal" data-id="1" role="button"><i class="fa fa-files-o fa-2x" aria-hidden="true"></i></a></td> -->
-                    <td><a class="text-tilt statusBtn" onclick="updateStatusHandler(this)" data-status="{{status}}" data-id="{{id}}" role="button">
+                    <td><a class="text-tilt roomStatusBtn" onclick="updateRoomStatusHandler(this)" data-status="{{status}}" data-id="{{roomId}}" role="button">
                         <i class="fa-solid {{statIcon}} fa-2x" aria-hidden="true"></i></a></td>
-                    <td><a class="text-tilt deleteShopBtn" onclick="deleteShopHandler(this)" data-index="{{index}}" data-id="{{id}}" role="button">
+                    <td><a class="text-tilt deleteRoomBtn" onclick="deleteRoomShopHandler(this)" data-index="{{index}}" data-id="{{roomId}}" role="button">
                         <i class="fa fa-times-circle-o fa-2x" aria-hidden="true"></i></a>
                     </td>
                 </tr>              
@@ -1018,6 +1015,15 @@
                 </table>
             </div>
         </section>
+        <template id="pagingTemp">
+            <li class="page-item  ">
+                <a class="page-link link-opacity-25 text-tilt" onClick="selectPageHandler(this)" id="page{{pagenum}}" data-pagenum="{{pagenum}}" role="button">{{paging}}</a>
+            </li>
+        </template>
+
+        <nav class="mt-3 mt-xl-0">
+            <ul class="pagination justify-content-end" id="pagination"></ul>
+        </nav>
     </main>
     <!-- pop-up modal template -->
     <template id="">

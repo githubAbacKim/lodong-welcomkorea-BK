@@ -207,7 +207,7 @@
 
 // ******************** processing functions **************************
 
-    function uploadShop(inputFiles,inputThumbnail,shopData){
+    const uploadShop = (inputFiles,inputThumbnail,shopData) =>{
         const thumbnail = inputThumbnail.files[0];    
         const files = inputFiles.files;
         const uplodUrl = 'http://210.99.223.38:13405/api/shop/upload';
@@ -243,7 +243,7 @@
         });    
     }
 
-    function uploadTranslated(data,postUrl){
+    const uploadTranslated = (data,postUrl) =>{
         shopData = JSON.stringify(data);
         postData(shopData, postUrl)
         .then((responseMessage) => {
@@ -256,7 +256,7 @@
         });
     }
 
-    function makePages(data,url){    
+    const makePages = (data,url)=>{    
         paginationCont.empty();  
         for (let index = 0; index < data; index++) {
             let pagingNum = index+1;
@@ -563,6 +563,47 @@
             console.log("Request failed: " + error);
         });  
     }
+
+    // room section
+    const apiLoginVendor = () => {
+        const url = 'http://210.99.223.38:13405/api/user/login';
+        const data = {
+            "username" : "admin",
+            "password" : "admin1001"
+        }
+        const logindata = JSON.stringify(data);
+        postData(logindata, url)
+        .then((response) => {     
+            console.log(response)
+            let url = `http://210.99.223.38:13405/api/room/web/admin/list/0/5`
+            asyncget(url, cb_test);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    }
+
+    const approveRoomVendor = () =>{
+
+    }
+
+    const declineRoomVendor = () =>{
+
+    }
+
+    const updateRoomVendor = () =>{
+
+    }
+
+    const singRoomDeleteVendor = () =>{
+
+    }
+
+    const multipleRoomDeleteVendor = () =>{
+
+    }
+
+
 // ***************************** end ************************************
 
 // ******************* callback functions for async get **********************
@@ -579,7 +620,7 @@
             const defaultPic = './vendors/imgs/thumbnail-default.svg';
             const thumbnail = (d.thumbnail !== null)? d.thumbnail: defaultPic;
             let icon = (d.status === "reviewing")? 'fa-eye-slash':'fa-eye';
-            let rowClass = (d.status === "reviewing")? 'muted': '';
+            let rowClass = (d.status === "reviewing")? 'opacity-25': '';
             let shopId = d.id;
             const data = {
                 'id':d.id,
@@ -658,6 +699,7 @@
                 'logo':d.languagePhoto
             };
             mustacheTemplating(languageSelect,languageSelectTemplate,datalang);
+            mustacheTemplating(roomLanguageSelect,roomLangSelectTemp,datalang);             
             apiLanArr.push(datalang);
         });
         console.log('apiLang:',apiLanArr);
@@ -783,8 +825,7 @@
             tlMemo.val(d.memo)
             tlSalary.val(d.salary)
         })
-        console.log(response)
-        
+        console.log(response)        
     }
     const cb_noLanguageTranslated = response =>{
         // else if language do not exist, display blank tranlated form and show UPLOAD Translated button
@@ -795,54 +836,118 @@
     const cb_putAjax = response =>{
         return response.message
     }
-
+    const errorCallbackVendor = (error) =>{
+        // const modalData = {
+        //     message:error
+        // }
+        // const title = 'Alert Message!';
+        // globalmodal (title,modal);
+        // modalContainer.empty();
+        // mustacheTemplating(modalContainer,alertTemplate,modalData);
+        console.log(error)
+    }
     // call back for room section
 
     const cb_reviewRoomTable = (response) =>{
+        console.log('review_rooms:',response,'total-pages',response.data.totalPages)
         let data =  response.data.room;
         reviewTableCont.empty();
-        $.each(data,(i,d)=>{
+        $.each(data,(i,d)=>{      
+            const paging = '';
+            const languages = d.languages;
+            const defaultPic = './vendors/imgs/thumbnail-default.svg';
+            const thumbnail = (d.photoPath !== null)? d.photoPath: defaultPic;
+            let icon = (d.status === "reviewing")? 'fa-eye-slash':'fa-eye';
+            let rowClass = (d.status === "reviewing")? 'muted': '';
+            let shopId = d.id;      
             const data = {
-                "id":d.roomId,
-                "frontMemo": d.frontMemo,
+                "roomId": d.roomId,
                 "deposit": d.deposit,
                 "rent": d.rent,
                 "address": d.address,
                 "status": d.status,
                 "createAt": d.createAt,
-                "photoPath": d.photoPath,
                 "roomOptionId": d.roomOptionId,
-                "isPosted": d.isPosted,
+                "estateName": d.estateName,
                 "saleNumber": d.saleNumber,
-                "ownerNumber": d.ownerNumber
+                "estateContact": d.estateContact,
+                'thumbnail':thumbnail,
             }
-            mustacheTemplating(reviewTableCont,reviewRowTemp,data);
+            mustacheTemplating(reviewTableCont,reviewRowTemp,data);   
         })
+        const tpage = response.data.totalPages;        
+        makePages(tpage);
     }
 
     const cb_roomListTable = (response) =>{
+        console.log('roomlist',response)
         let data = response.data.room
         approveTableCont.empty();
         $.each(data,(i,d)=>{
+            const paging = '';
+            const languages = d.languages;
+            const defaultPic = './vendors/imgs/thumbnail-default.svg';
+            const thumbnail = (d.photoPath !== null)? d.photoPath: defaultPic;
+            let icon = (d.status === "reviewing")? 'fa-eye-slash':'fa-eye';
+            let rowClass = (d.status === "reviewing")? 'muted': '';
+            let shopId = d.id;
             const data = {
                 "roomId": d.roomId,
-                "frontMemo": d.frontMemo,
                 "deposit": d.deposit,
                 "rent": d.rent,
                 "address": d.address,
                 "status": d.status,
                 "createAt": d.createAt,
-                "photoPath": d.photoPath,
                 "roomOptionId": d.roomOptionId,
-                "isPosted": d.isPosted,
+                "estateName": d.estateName,
                 "saleNumber": d.saleNumber,
-                "ownerNumber": d.ownerNumber
-              }
+                "estateContact": d.estateContact,
+                'thumbnail':thumbnail,
+                "languages": d.languages,
+                'langid':'lang'+i,
+                'buttonid':'button'+i,
+                'statIcon': icon,
+                'rowClass': rowClass,
+                'index':i
+            }
             mustacheTemplating(approveTableCont, approveRowTemplate,data);
+            // loading language
+            const langCont = $(`#lang${i}`);
+            langCont.empty();  
+            $.each(apiLanArr,(i,dd) => {
+                let classBg;
+                let clickev;
+                let dataLang = dd.language;
+                let acroLang = apiLanArr
+                    .filter(data => data.language.includes(dd.language))
+                    .map(data => data.language)[0]
+                    .substr(0, 2)
+                    .toUpperCase();
+                    
+                    if(languages !== null){
+                        let isInLanguageArr = languages.includes(dataLang);
+                        classBg = isInLanguageArr ? colorArr[i] : mutedColor;
+                        clickev = isInLanguageArr ? "selectLanguageTransHandler(this)" : "";
+                    }else{
+                        classBg = mutedColor;
+                        clickev = "";
+                    }
+                    const mustData = {
+                        language: acroLang,
+                        bg: classBg,
+                        full: dd.language,
+                        code: dd.code,
+                        shopId: shopId,
+                        click: clickev
+                    };         
+                mustacheTemplating(langCont, availablelangTemp, mustData);
+            });
         })
+        const tpage = response.data.totalPages;         
+        makePages(tpage);
     }
 
-    const cb_getRoomDetails = (response) =>{
+    const cb_getSelectedRoomDetails = (response) =>{
         let data = response.data.roomTranslationDto
         let optionArr = [];
         const inputdata = {
@@ -907,4 +1012,16 @@
         })
 
         displaySelectedRoomsImgVendor();
+    }
+
+    const cb_selectedLanguageRoom = () =>{
+        // const rtlfrontmemo = 
+        // const rtladdress = 
+        // const rtlmemo = 
+        // const language = roomLanguageSelect.val()
+        // const rtlroomid = 
+    }
+
+    const cb_test = (response) =>{
+        console.log(response);
     }

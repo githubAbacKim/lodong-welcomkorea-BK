@@ -1,4 +1,4 @@
-// run functions, run handler here, define html elements here
+1// run functions, run handler here, define html elements here
 // array objects and default values
 const startpage = 0;
 const defaultRowVal = 5;
@@ -18,7 +18,7 @@ let imagesArr = [];
 let showEleArr = [];
 let hideEleArr = [];
 
-let mustacheRoomService = [];
+let roomOptionArr = [];
 
 const optionArr = [
     {option:"airConditioner",src:"./vendors/imgs/room_option/ac.svg"},
@@ -45,6 +45,8 @@ const modal = $('#globalModal');
 
 const commissionTable = $('#commissionTable');
 const shopTable = $('#shopTable');
+
+const shopOptions = $('#shopOptions');
 
 // buttons
 const editBtnEle = document.getElementsByClassName('.editBtn');
@@ -165,6 +167,12 @@ const tlSalary = $('#tl-salary');
 // let table = new DataTable('#shopTable');
 
 // room
+const approveTable = $('#approveTable');
+const reviewTable = $('#reviewTable');
+const roomOption = $('#roomOption');
+const roomViewOption = $('#roomViewOption');
+const roomForm = $('#roomForm');
+
 const inclusionTemp = $('#inclusionTemp');
 const inclusionCont = $('#inclusionCont');
 
@@ -177,9 +185,40 @@ const approveTableCont = $('#approveTableCont');
 const approveRoomBtn = $('#approveRoomBtn');
 const declineRoomBtn = $('#declineRoomBtn');
 const updateRoomBtn = $('#updateRoomBtn');
+const closeRoomTranslatedBtn = $('#closeRoomTranslatedBtn');
 
 const roomSlideTemp = $('#roomSlideTemp');
-const roomSliderHotelCont = $('#roomSliderHotelCont');
+const roomSliderCont = $('#roomSliderCont');
+
+const roomLanguageSelect = $('#roomLanguageSelect');
+const roomLangSelectTemp = $('#roomLangSelectTemp');
+
+const translatedRoomSection = $('#translatedRoomSection');
+
+// room inputs
+const username = $('#username');
+const password = $('#password');
+const froomid = $('#froomid');
+
+const rtlfrontmemo = $('#rtlfrontmemo');
+const rtladdress = $('#rtladdress');
+const rtlmemo = $('#rtlmemo');
+const rtlroomid = $('#rtlroomid');
+
+const roomtitle = $('#roomtitle');
+const roomaddress = $('#roomaddress');
+const roomcontractExpire = $('#roomcontractExpire');
+const roommovedate = $('#roommovedate');
+const isMoveInDatePossible = $('#isMoveInDatePossible');
+const roominfo = $('#roominfo');
+const roomdeposit = $('#roomdeposit');
+const roomrent = $('#roomrent');
+const roomyear = $('#roomyear');
+const roommonth = $('#roommonth');
+const roomarea = $('#roomarea');
+const floor = $('#floor');
+const elevator = $('#elevator');
+const roomtyperooms = $('#roomtyperooms');
 
 // event Handler functions
 timePickerDom();
@@ -197,3 +236,7 @@ closeOtherSectionButton.on('click', closeOtherFormHandler);
 closeTranslatedButton.on('click', closeTranslatedFormHandler);
 updateTranslatedShopButton.on('click', updateTranslatedShopHandler);
 updateShopButton.on('click',updateShopDetailsHandler);
+
+closeRoomTranslatedBtn.on('click',closeRoomTranslatedFormHandler)
+
+testroomapiHandler();

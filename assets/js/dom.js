@@ -34,10 +34,9 @@
   }
 
   const massageDom = () =>{
-      // define dom elements to loaded when massage shop is selected.
-      // languageSelect.prop('disabled',true);
-      massageSection.addClass('d-none');
-      massageTableSection.removeClass('d-none');
+      showEleArr = [massageTableSection,shopOptions];
+      hideEleArr = [massageSection];
+      basicHideShowEleDom();
   }
 
   const addNewPositionDom = () => {
@@ -45,26 +44,24 @@
     console.log(section)
     if(section === "massage"){
 
-        showEleArr = [sectionTitleH4,massageSection,uploadShopButton,massageTableSection];
+        showEleArr = [sectionTitleH4,massageSection,uploadShopButton,massageTableSection,shopOptions];
         hideEleArr = [updateShopButton,updateTranslatedShopButton,translatedSection,otherSection,
-          languageSelect,roomReviewTableSection,roomApproveTableSection];
+          languageSelect,roomReviewTableSection,roomApproveTableSection,roomOption];
         hideShowEleDom();
         
         sectionTitleH4.text('Shop Information');
 
     } else if(section !== "massage" && section !== ''){
-
-        showEleArr = [sectionTitleH4,otherSection,roomReviewTableSection];
+        
+        showEleArr = [sectionTitleH4,otherSection,roomReviewTableSection,roomViewOption];
         hideEleArr = [updateShopButton,uploadShopButton,updateTranslatedShopButton,translatedSection,massageSection,
-          massageTableSection,roomApproveTableSection];
+          massageTableSection,roomApproveTableSection,roomOption,shopOptions];
         hideShowEleDom();
         
         sectionTitleH4.text('Hotel Information');
-
     }else{
-
-        showEleArr = [massageTableSection];
-        hideEleArr = [translatedSection,massageSection,sectionTitleH4,otherSection,roomReviewTableSection,roomApproveTableSection];
+        showEleArr = [massageTableSection,shopOptions];
+        hideEleArr = [translatedSection,massageSection,sectionTitleH4,otherSection,roomReviewTableSection,roomApproveTableSection,roomOption];
         hideShowEleDom();
 
         resetToDefaultViewHandler();
@@ -84,14 +81,6 @@
       hideEleArr = [massageSection,sectionTitleH4];
       hideShowEleDom();
       shoptypeSelect.val('');
-  }
-
-  const closeOtherSectiondDom = () => {
-
-    showEleArr = [languageSelect,massageTableSection];
-    hideEleArr = [otherSection,sectionTitleH4,roomReviewTableSection,roomApproveTableSection];
-    hideShowEleDom();
-    shoptypeSelect.val('');
   }
 
   const closeTranslatedSectiondDom = () => {
@@ -228,6 +217,28 @@
       //     selects[i].value = '';
       // }
   }
+
+  const clearRoomInputsDom = () =>{
+    // clear input fields
+    roomLanguageSelect.attr('data-shopSelect','');
+    for (var i = 0; i < formElements.length; i++) {
+        if (formElements[i].type == 'text' || formElements[i].type == 'number' || formElements[i].type == 'time' || formElements[i].type == 'file') {
+            formElements[i].value = '';
+        } else if (formElements[i].type == 'checkbox' || formElements[i].type == 'radio') {
+            formElements[i].checked = false;
+        }
+    }
+
+    // clear textareas
+    for (var i = 0; i < textareas.length; i++) {
+    textareas[i].value = '';
+    }
+
+    // clear select elements
+    // for (var i = 0; i < selects.length; i++) {
+    //     selects[i].value = '';
+    // }
+}
 
   const clearTranslatedFormDom = () =>{
       tlTitle.val("")
@@ -508,17 +519,62 @@
 // });
 $(document).ready(function(){
   $('[data-toggle="tooltip"]').tooltip(); 
+
+  var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+  var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+    return new bootstrap.Popover(popoverTriggerEl)
+  })
 });
 
 // room dom
-
+// display form if column is selected. use this variable roomForm
 const reviewRoomDom = () =>{
   showEleArr = [roomReviewTableSection,approveRoomBtn,declineRoomBtn];
-  hideEleArr = [roomApproveTableSection,updateRoomBtn];
+  hideEleArr = [roomApproveTableSection,updateRoomBtn,roomForm];
   basicHideShowEleDom();
 }
 const editRoomDom = () =>{
-  showEleArr = [roomApproveTableSection,updateRoomBtn];
+  showEleArr = [otherSection, roomApproveTableSection, updateRoomBtn];
+  hideEleArr = [roomReviewTableSection,approveRoomBtn,declineRoomBtn,roomForm];
+  basicHideShowEleDom();
+}
+
+const showSelectedRoomReviewDom = () =>{
+  showEleArr = [roomForm];
+  hideEleArr = [];
+  basicHideShowEleDom();
+}
+
+const showSelectedRoomEditDom = () =>{
+  showEleArr = [roomApproveTableSection,otherSection,roomForm,updateRoomBtn,roomOption];
   hideEleArr = [roomReviewTableSection,approveRoomBtn,declineRoomBtn];
   basicHideShowEleDom();
+}
+
+const showTranslatedRoomsDom = () =>{
+  showEleArr = [updateTranslatedShopButton,translatedRoomSection,roomOption,sectionTitleH4];
+  hideEleArr = [uploadTranslatedButton,uploadShopButton,massageSection,otherSection,roomForm,shopOptions];
+  hideShowEleDom();
+
+  sectionTitleH4.text('Hotel Translated Information');
+}
+
+const closeRoomTranslatedSectiondDom = () => {
+  showEleArr = [otherSection, roomApproveTableSection, updateRoomBtn];
+  hideEleArr = [roomReviewTableSection,approveRoomBtn,declineRoomBtn,roomForm,translatedRoomSection];
+  basicHideShowEleDom();
+  shoptypeSelect.val('');
+}
+const closeOtherSectiondDom = () => {
+  showEleArr = [otherSection, roomApproveTableSection, updateRoomBtn];
+  hideEleArr = [roomReviewTableSection,approveRoomBtn,declineRoomBtn,roomForm];
+  basicHideShowEleDom();
+  shoptypeSelect.val('');
+}
+const deleteRoomTableRowDom = () => {    
+  approveTable.on("click", '.deleteRoomBtn', function () {
+      let id = $(this).attr("data-index"); 
+      console.log(id)       
+      $(this).closest("tr").remove(); // select the row and remove it
+  })
 }

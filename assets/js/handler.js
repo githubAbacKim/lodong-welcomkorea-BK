@@ -25,12 +25,26 @@ const nextButtonHandler = () => {
         $("#pagination li:nth-child(" + pageNum + ")").addClass("link-opacity-100");
     }
 }
+const loadDefaultView = () =>{
+    let section = shoptypeSelect.val();
+
+    if(section === "massage"){
+        loadMassageViewHandler();
+    }else if(section !== "massage" && section !== ""){
+        // load review list
+        loadReviewRoomHandler();
+    }else{
+        
+    }
+}
 const addNewPositionHandler = () =>{
     clearFormDataHandler();
     addNewPositionDom();
+    loadReviewRoomHandler();
     // limit = defaultRowVal;
     // const url  = `http://210.99.223.38:13405/api/shop/list/${startpage}/${limit}`;
     // asyncget(url, cb_massageTable);
+    
 }
 
 function uploadShopHandler(){
@@ -80,6 +94,7 @@ function uploadShopHandler(){
     }
     
 }
+
 function loadMassageViewHandler(){    
     clearFormDataHandler();
     massageDom();
@@ -415,6 +430,7 @@ const validateInputsHandler = (inputs) =>{
     return isValid;
 }
 
+
 const validateTranslateInputsHandler = (inputs) =>{    
     let isValid = true;
     for (let i = 0; i < inputs.length; i++) {
@@ -437,40 +453,159 @@ const validateMultipleSelectHandler = () => {
 }
 
 // room handlers
+
+const loginInputsHandler = (inputs) =>{
+    let isValid = true;
+    for (let i = 0; i < inputs.length; i++) {
+        const input = inputs[i];
+        if (input === '' || input === null) {
+        isValid = false;
+        break; // Stop the loop if any input is invalid
+        }
+    }
+    return isValid;
+}
+
+const roomLoginHandler = () =>{
+    const logininputs = [username.val(),password.val()];
+    if(loginInputsHandler(logininputs) === true){
+        let data = {
+            username: username.val(),
+            password: password.val()
+        }
+        apiLoginVendor(data);
+    }else{
+        // message error here
+        const modalData = {
+            message:'Some inputs are empty!'
+        }
+        const title = 'Alert Message!';
+        globalmodal (title,modal);
+        modalContainer.empty();
+        mustacheTemplating(modalContainer,alertTemplate,modalData);
+    }
+}
 const reviewRoomHandler = () =>{
     reviewRoomDom();
+    loadReviewRoomHandler();
 }
 
 const editRoomHandler = () =>{
     editRoomDom();
+    loadRoomListHandler();
 }
 
 const loadReviewRoomHandler = () =>{
     // load default view when hotel is selected
+    const url  = '../assets/json/getroomlist.json';
+    asyncget(url, cb_reviewRoomTable,errorCallbackVendor);
+}
+
+const loadRoomListHandler = () =>{
+    const url  = '../assets/json/getroomlist.json';
+    asyncget(url, cb_roomListTable,errorCallbackVendor);
+    
 }
 
 // select language
 const selectRoomLanguageHandler = (element) =>{
-
-}
-
-// handler for column click in review room
-const columnSelectReviewHandler = (element) =>{
-
-}
-
-const approveColumnSelectHandler = (element) =>{
-
-}
-
-const loadDefaultView = () =>{
-    let section = shoptypeSelect.val();
-
-    if(section === "massage"){
-
-    }else if(section !== "massage" && section !== ""){
-        // load review list
+    const code = $(element).val();
+    const shopid = element.getAttribute('data-shopselect');
+    console.log(shopid)
+    if(!shopid){
+        const modalData = {
+            message:'Please select a shop.'
+        }
+        const title = 'Alert Message!';
+        globalmodal (title,modal);
+        modalContainer.empty();
+        mustacheTemplating(modalContainer,alertTemplate,modalData);
     }else{
+        limit = defaultRowVal;
+        const urlData  = `http://210.99.223.38:13405/api/shop/list/${startpage}/${limit}`;
+        // asyncget(urlData, cb_massageTable);
+        const url  = `http://210.99.223.38:13405/api/shop/translatedInfo?languageCode=${code}&shopId=${shopid}`;    
+        // asyncget(url, cb_selectLanguageShop,cb_noLanguageTranslated);
+        showTranslatedRoomsDom();
         
     }
+}
+
+const clearRoomFormDataHandler = () =>{
+    clearRoomInputsDom();
+    resetPreviewDom();
+    imagesArr.splice(0, imagesArr.length);
+    roomSliderHotelCont.empty();
+    inclusion.empty();
+}
+// handler for column click in review room
+const columnSelectReviewHandler = (element) =>{
+    clearFormDataHandler();
+    showSelectedRoomReviewDom();
+    const roomid = element.getAttribute('data-id');
+    roomLanguageSelect.attr('data-shopselect',roomid);
+    limit = defaultRowVal;
+    const code = 0;
+    froomid.val(roomid);
+    rtlroomid.val(roomid);
+    languageSelect.val('0')
+    loadReviewRoomHandler();
+    const url  = `http://210.99.223.38:13406/api/room?roomId=${roomid}`;
+    console.log(url)
+    // asyncget(url, cb_getSelectedRoomDetails);
+    
+    console.log('tr:',roomid)
+}
+
+const columnSelectApproveHandler = (element) =>{
+    clearFormDataHandler();
+    showSelectedRoomEditDom();
+    const roomid = element.getAttribute('data-id');
+    roomLanguageSelect.attr('data-shopselect',roomid);
+    limit = defaultRowVal;
+    const code = 0;
+    froomid.val(roomid);
+    rtlroomid.val(roomid); 
+    languageSelect.val('0')
+    loadRoomListHandler();
+    const url  = `http://210.99.223.38:13406/api/room?roomId=${roomid}`;    
+    console.log(url)
+    // asyncget(url, cb_getSelectedRoomDetails,errorCallbackVendor);
+    
+    console.log('tr:',roomid)
+}
+
+const updateRoomStatusHandler = (element) =>{
+    // load pop-up modal here for multiple room delete
+}
+
+const deleteRoomShopHandler = (element) =>{
+    // initiate multiple room delete here
+    const id = element.getAttribute('data-id')
+    console.log('delete id:',id)
+    const delUrl = ``
+    let data = [id]
+    deleteRoomTableRowDom();
+    // deleteData(data, delUrl)
+    // .then(function(response) {
+    //     console.log(response)
+    // })
+    // .catch(function(error) {
+    //     console.log("Request failed: " + error);
+    // }); 
+}
+
+const deleteMultipleRoomHandler = () =>{
+
+}
+
+function closeRoomTranslatedFormHandler(){
+    closeRoomTranslatedSectiondDom();
+    limit = largeRowVal;
+    const url  = `http://210.99.223.38:13405/api/shop/list/${startpage}/${limit}`;
+    // asyncget(url, cb_massageTable);
+}
+
+const testroomapiHandler = () =>{
+    apiLoginVendor();
 }

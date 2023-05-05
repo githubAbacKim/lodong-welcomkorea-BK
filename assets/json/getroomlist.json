@@ -1,0 +1,92 @@
+{
+    "status": "OK",
+    "message": "검토 대기 방 리스트",
+    "data": {
+        "totalPages": 1,
+        "room": [
+            {
+                "roomId": "0857caa1-4cdb-4cfa-b13f-47d54b620705",
+                "deposit": 100000000,
+                "rent": 12000000,
+                "address": "서울특별시 강남구 너네집102동103호",
+                "status": "Post",
+                "createAt": "2023-05-04 15:36:59",
+                "photoPath": "http://210.99.223.38:13405/api/file/room-photo/thumbnail?roomId=0857caa1-4cdb-4cfa-b13f-47d54b620705&imageId=8a33bc25-70b4-4393-94e6-d2cf6f05237a",
+                "roomOptionId": "0857caa1-4cdb-4cfa-b13f-47d54b620705",
+                "saleNumber": "7388579443",
+                "estateName": "로동이다씹쌔야",
+                "estateContact": "01012345678",
+                "languages": []
+            },
+            {
+                "roomId": "f571e4b4-e7aa-4c48-bcea-b7e87e3e7ff8",
+                "deposit": 1000000,
+                "rent": 300000,
+                "address": "서울특별시 강남구 dddd",
+                "status": "Post",
+                "createAt": "2023-05-03 11:45:57",
+                "photoPath": "http://210.99.223.38:13405/api/file/room-photo/thumbnail?roomId=f571e4b4-e7aa-4c48-bcea-b7e87e3e7ff8&imageId=32748d29-da39-48c4-b765-49ae717d71fc",
+                "roomOptionId": "f571e4b4-e7aa-4c48-bcea-b7e87e3e7ff8",
+                "saleNumber": "4083456446",
+                "estateName": "로동부동산",
+                "estateContact": "01028496577",
+                "languages": [
+                    "123",
+                    "Russian",
+                    "Vietnam",
+                    "SSS"
+                ]
+            },
+            {
+                "roomId": "ae45ccca-7850-4e65-8df4-8199890504e0",
+                "deposit": 5000000,
+                "rent": 600000,
+                "address": "경기도 군포시 당동 123-1번지",
+                "status": "Post",
+                "createAt": "2023-04-26 10:31:32",
+                "photoPath": "http://210.99.223.38:13405/api/file/room-photo/thumbnail?roomId=ae45ccca-7850-4e65-8df4-8199890504e0&imageId=f27197bd-a11a-4330-90c4-7a9315a84e97",
+                "roomOptionId": "ae45ccca-7850-4e65-8df4-8199890504e0",
+                "saleNumber": "1794952271",
+                "estateName": "로오동",
+                "estateContact": "01067111161",
+                "languages": [
+                    "444",
+                    "5555",
+                    "123",
+                    "Thai"
+                ]
+            },
+            {
+                "roomId": "84375158-6ff0-46fe-8b10-e29c6c0303fb",
+                "deposit": 5000000,
+                "rent": 800000,
+                "address": "서울특별시 강남구 서울시 강남구 논현동",
+                "status": "Post",
+                "createAt": "2023-04-26 10:22:24",
+                "photoPath": "http://210.99.223.38:13405/api/file/room-photo/thumbnail?roomId=84375158-6ff0-46fe-8b10-e29c6c0303fb&imageId=4aa17923-9fc3-4c89-8881-45e2dd0497a5",
+                "roomOptionId": "84375158-6ff0-46fe-8b10-e29c6c0303fb",
+                "saleNumber": "6031679175",
+                "estateName": "로오동",
+                "estateContact": "01067111161",
+                "languages": [
+                    "Thai"
+                ]
+            },
+            {
+                "roomId": "1796f8d0-9c37-4b5f-974c-08ce7445761e",
+                "deposit": 1000000,
+                "rent": 380000,
+                "address": "서울특별시 강남구 자자자자자",
+                "status": "Post",
+                "createAt": "2023-04-25 18:57:23",
+                "photoPath": "http://210.99.223.38:13405/api/file/room-photo/thumbnail?roomId=1796f8d0-9c37-4b5f-974c-08ce7445761e&imageId=aba83dde-e3c3-4541-9e9d-208a30a49ca9",
+                "roomOptionId": "1796f8d0-9c37-4b5f-974c-08ce7445761e",
+                "saleNumber": "3412659061",
+                "estateName": "로동부동산",
+                "estateContact": "01028496577",
+                "languages": []
+            }
+        ],
+        "totalElements": 5
+    }
+}
