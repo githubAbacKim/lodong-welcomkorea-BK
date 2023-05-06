@@ -527,7 +527,7 @@ $(document).ready(function(){
 // display form if column is selected. use this variable roomForm
 const reviewRoomDom = () =>{
   showEleArr = [roomReviewTableSection,approveRoomBtn,declineRoomBtn];
-  hideEleArr = [roomApproveTableSection,updateRoomBtn,roomForm];
+  hideEleArr = [roomApproveTableSection,updateRoomBtn,roomForm,roomOption];
   basicHideShowEleDom();
 }
 const editRoomDom = () =>{
@@ -535,19 +535,16 @@ const editRoomDom = () =>{
   hideEleArr = [roomReviewTableSection,approveRoomBtn,declineRoomBtn,roomForm];
   basicHideShowEleDom();
 }
-
 const showSelectedRoomReviewDom = () =>{
-  showEleArr = [roomForm];
-  hideEleArr = [];
+  showEleArr = [roomReviewTableSection,otherSection,roomForm,approveRoomBtn,declineRoomBtn];
+  hideEleArr = [roomApproveTableSection,updateRoomBtn,roomOption];
   basicHideShowEleDom();
 }
-
 const showSelectedRoomEditDom = () =>{
   showEleArr = [roomApproveTableSection,otherSection,roomForm,updateRoomBtn,roomOption];
   hideEleArr = [roomReviewTableSection,approveRoomBtn,declineRoomBtn];
   basicHideShowEleDom();
 }
-
 const showTranslatedRoomsDom = () =>{
   showEleArr = [updateTranslatedShopButton,translatedRoomSection,roomOption,sectionTitleH4];
   hideEleArr = [uploadTranslatedButton,uploadShopButton,massageSection,otherSection,roomForm,shopOptions];
@@ -555,7 +552,6 @@ const showTranslatedRoomsDom = () =>{
 
   sectionTitleH4.text('Hotel Translated Information');
 }
-
 const closeRoomTranslatedSectiondDom = () => {
   showEleArr = [otherSection, roomApproveTableSection, updateRoomBtn];
   hideEleArr = [roomReviewTableSection,approveRoomBtn,declineRoomBtn,roomForm,translatedRoomSection];
