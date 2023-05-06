@@ -186,6 +186,8 @@ const approveRoomBtn = $('#approveRoomBtn');
 const declineRoomBtn = $('#declineRoomBtn');
 const updateRoomBtn = $('#updateRoomBtn');
 const closeRoomTranslatedBtn = $('#closeRoomTranslatedBtn');
+const uploadRoomTranslatedBtn = $('#uploadRoomTranslatedBtn');
+const updateRoomTranslatedShopBtn = $('#updateRoomTranslatedShopBtn');
 
 const roomSlideTemp = $('#roomSlideTemp');
 const roomSliderCont = $('#roomSliderCont');
