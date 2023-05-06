@@ -5,16 +5,13 @@
   const hideShowEleDom = () =>{
     if(showEleArr!= null){
       $.each(showEleArr,(i,d) =>{
-        d.fadeIn(800).removeClass('d-none');
+        d.fadeIn(800).removeClass('d-none').show();
       })
     }
     
     if(hideEleArr != null){
       $.each(hideEleArr,(i,d) =>{
-        d.fadeOut()
-        setTimeout(()=>{
-          d.addClass('d-none');
-        },1000)
+        d.hide().addClass('d-none');
       })
     }
   }
@@ -22,13 +19,13 @@
   const basicHideShowEleDom = () =>{
     if(showEleArr!= null){
       $.each(showEleArr,(i,d) =>{
-        d.removeClass('d-none');
+        d.removeClass('d-none').show();
       })
     }
     
     if(hideEleArr != null){
       $.each(hideEleArr,(i,d) =>{
-        d.addClass('d-none');
+        d.hide().addClass('d-none');
       })
     }
   }

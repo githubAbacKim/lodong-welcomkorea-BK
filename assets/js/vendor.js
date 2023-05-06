@@ -481,7 +481,8 @@
         const shopData = JSON.stringify(data);        
         putData(shopData,url)
         .then((responseMessage) => {
-            $(element).find('i').toggleClass('fa-eye fa-eye-slash');   
+            $(element).find('i').toggleClass('fa-eye fa-eye-slash');
+            $(element).closest("tr").toggleClass('opacity-25 opacity-100');
         })
         .catch((error) => {
             console.log(error);
@@ -576,7 +577,7 @@
         .then((response) => {     
             console.log(response)
             let url = `http://210.99.223.38:13405/api/room/web/admin/list/0/5`
-            asyncget(url, cb_test);
+            asyncget(url, cb_test,errorCallbackVendor);
         })
         .catch((error) => {
             console.log(error);
@@ -620,7 +621,7 @@
             const defaultPic = './vendors/imgs/thumbnail-default.svg';
             const thumbnail = (d.thumbnail !== null)? d.thumbnail: defaultPic;
             let icon = (d.status === "reviewing")? 'fa-eye-slash':'fa-eye';
-            let rowClass = (d.status === "reviewing")? 'opacity-25': '';
+            let rowClass = (d.status === "reviewing")? 'opacity-25': 'opacity-100'
             let shopId = d.id;
             const data = {
                 'id':d.id,
