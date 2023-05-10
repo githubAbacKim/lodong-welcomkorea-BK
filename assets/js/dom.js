@@ -542,7 +542,7 @@ const showSelectedRoomReviewDom = () =>{
 }
 const showSelectedRoomEditDom = () =>{
   showEleArr = [roomApproveTableSection,otherSection,roomForm,updateRoomBtn,roomOption];
-  hideEleArr = [roomReviewTableSection,approveRoomBtn,declineRoomBtn];
+  hideEleArr = [roomReviewTableSection,approveRoomBtn,declineRoomBtn,translatedRoomSection];
   basicHideShowEleDom();
 }
 const showTranslatedRoomsDom = () =>{

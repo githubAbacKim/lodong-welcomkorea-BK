@@ -24,6 +24,12 @@
         .done(response => callback(response))
         .fail(error => errcallback(error));
     }
+    const fetchData = (url,requestOptions,callback,errorcallback) =>{
+        fetch(url, requestOptions)
+        .then(response => response.text())
+        .then(result => callback(result))
+        .catch(error => errorcallback(error));
+    }
     const ajaxget = url =>{
         var tmp;
         $.ajax({
@@ -501,6 +507,7 @@
                 //call close massage section handler
             }
         })
+        .then(result => console.log(result))
         .catch((error) => {
             console.log(error);
         });
@@ -567,21 +574,37 @@
 
     // room section
     const apiLoginVendor = () => {
+        // const url = 'http://210.99.223.38:13405/api/user/login';
+        // const data = {
+        //     "username" : "admin",
+        //     "password" : "admin1001"
+        // }
+        // const logindata = JSON.stringify(data);
+        // postData(logindata, url)
+        // .then((response) => {     
+        //     console.log(response)
+        //     let url = `http://210.99.223.38:13405/api/room/web/admin/list/0/5`
+        //     asyncget(url, cb_test,errorCallbackVendor);
+        //     fetchGet(url,requestOptions,callback,errorcallback)
+        // })
+        // .catch((error) => {
+        //     console.log(error);
+        // });
         const url = 'http://210.99.223.38:13405/api/user/login';
         const data = {
             "username" : "admin",
             "password" : "admin1001"
         }
-        const logindata = JSON.stringify(data);
-        postData(logindata, url)
-        .then((response) => {     
-            console.log(response)
-            let url = `http://210.99.223.38:13405/api/room/web/admin/list/0/5`
-            asyncget(url, cb_test,errorCallbackVendor);
-        })
-        .catch((error) => {
-            console.log(error);
-        });
+        var requestOptions = {
+            method: 'POST',
+            body: data,
+            redirect: 'follow'
+          };
+        fetchData(url,requestOptions,callback,errorcallback)
+    }
+
+    const cb_logIn = () =>{
+        
     }
 
     const approveRoomVendor = () =>{
@@ -1024,5 +1047,5 @@
     }
 
     const cb_test = (response) =>{
-        console.log(response);
+        
     }

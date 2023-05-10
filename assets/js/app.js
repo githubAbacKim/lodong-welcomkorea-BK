@@ -239,6 +239,6 @@ closeTranslatedButton.on('click', closeTranslatedFormHandler);
 updateTranslatedShopButton.on('click', updateTranslatedShopHandler);
 updateShopButton.on('click',updateShopDetailsHandler);
 
-closeRoomTranslatedBtn.on('click',closeRoomTranslatedFormHandler)
+closeRoomTranslatedBtn.on('click',closeRoomTranslatedFormHandler);
 
 testroomapiHandler();
