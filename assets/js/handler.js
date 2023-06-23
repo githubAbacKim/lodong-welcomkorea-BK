@@ -230,7 +230,6 @@ const selectLanguageListHandler = (element) =>{
         const url  = `http://210.99.223.38:13405/api/shop/translatedInfo?languageCode=${code}&shopId=${shopid}`;    
         asyncget(url, cb_selectLanguageShop,cb_noLanguageTranslated);
     }
-
 }
 
 const columnSelectShopHandler = element =>{

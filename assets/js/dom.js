@@ -235,7 +235,7 @@
     // for (var i = 0; i < selects.length; i++) {
     //     selects[i].value = '';
     // }
-}
+  }
 
   const clearTranslatedFormDom = () =>{
       tlTitle.val("")
@@ -464,64 +464,65 @@
   function makeGliderDom() {
     
   }
-// $(document).ready(function(){
-//   const mainImage = document.querySelector('.main-thumb img');
-//     const thumbnails = document.querySelectorAll('.glider-img img');
 
-//     const glider = new Glider(document.querySelector('.glider'), {
-//         slidesToShow: 2,
-//         slidesToScroll: 2,
-//         itemWidth: undefined,
-//         exactWidth: false,
-//         duration: .5,
-//         easing: function (x, t, b, c, d) {
-//             return c * (t /= d) * t + b;
-//         },
-//         rewind: true,
-//         arrows: {
-//             prev: '.glider-prev',
-//             next: '.glider-next'
-//         },
-//         responsive: [
-//             {
-//                 breakpoint: 900,
-//                 settings: {
-//                     slidesToShow: 3,
-//                     slidesToScroll: 3,
-//                     itemWidth: undefined,
-//                     exactWidth: false,
-//                     duration: 0.25
-//                 }
-//             },
-//             {
-//                 breakpoint: 575,
-//                 settings: {
-//                     slidesToShow: 4,
-//                     slidesToScroll: 4,
-//                     itemWidth: undefined,
-//                     exactWidth: false,
-//                     duration: 0.25
-//                 }
-//             }
-//         ]
-//     })
+  // $(document).ready(function(){
+  //   const mainImage = document.querySelector('.main-thumb img');
+  //     const thumbnails = document.querySelectorAll('.glider-img img');
 
-//     thumbnails.forEach((thumbnail, index) => {
-//         thumbnail.addEventListener('click', function () {
-//             const newImageSrc = this.getAttribute('src');
-//             mainImage.setAttribute('src', newImageSrc);
-//             glider.scrollItem(index);
-//         });
-//     });
-// });
-$(document).ready(function(){
-  $('[data-toggle="tooltip"]').tooltip(); 
+  //     const glider = new Glider(document.querySelector('.glider'), {
+  //         slidesToShow: 2,
+  //         slidesToScroll: 2,
+  //         itemWidth: undefined,
+  //         exactWidth: false,
+  //         duration: .5,
+  //         easing: function (x, t, b, c, d) {
+  //             return c * (t /= d) * t + b;
+  //         },
+  //         rewind: true,
+  //         arrows: {
+  //             prev: '.glider-prev',
+  //             next: '.glider-next'
+  //         },
+  //         responsive: [
+  //             {
+  //                 breakpoint: 900,
+  //                 settings: {
+  //                     slidesToShow: 3,
+  //                     slidesToScroll: 3,
+  //                     itemWidth: undefined,
+  //                     exactWidth: false,
+  //                     duration: 0.25
+  //                 }
+  //             },
+  //             {
+  //                 breakpoint: 575,
+  //                 settings: {
+  //                     slidesToShow: 4,
+  //                     slidesToScroll: 4,
+  //                     itemWidth: undefined,
+  //                     exactWidth: false,
+  //                     duration: 0.25
+  //                 }
+  //             }
+  //         ]
+  //     })
 
-  var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
-  var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
-    return new bootstrap.Popover(popoverTriggerEl)
-  })
-});
+  //     thumbnails.forEach((thumbnail, index) => {
+  //         thumbnail.addEventListener('click', function () {
+  //             const newImageSrc = this.getAttribute('src');
+  //             mainImage.setAttribute('src', newImageSrc);
+  //             glider.scrollItem(index);
+  //         });
+  //     });
+  // });
+  $(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip(); 
+
+    var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+    var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+      return new bootstrap.Popover(popoverTriggerEl)
+    })
+  });
 
 // room dom
 // display form if column is selected. use this variable roomForm

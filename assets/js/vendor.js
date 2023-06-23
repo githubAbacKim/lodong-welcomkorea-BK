@@ -574,33 +574,34 @@
 
     // room section
     const apiLoginVendor = () => {
-        // const url = 'http://210.99.223.38:13405/api/user/login';
-        // const data = {
-        //     "username" : "admin",
-        //     "password" : "admin1001"
-        // }
-        // const logindata = JSON.stringify(data);
-        // postData(logindata, url)
-        // .then((response) => {     
-        //     console.log(response)
-        //     let url = `http://210.99.223.38:13405/api/room/web/admin/list/0/5`
-        //     asyncget(url, cb_test,errorCallbackVendor);
-        //     fetchGet(url,requestOptions,callback,errorcallback)
-        // })
-        // .catch((error) => {
-        //     console.log(error);
-        // });
         const url = 'http://210.99.223.38:13405/api/user/login';
         const data = {
             "username" : "admin",
             "password" : "admin1001"
         }
-        var requestOptions = {
-            method: 'POST',
-            body: data,
-            redirect: 'follow'
-          };
-        fetchData(url,requestOptions,callback,errorcallback)
+        const logindata = JSON.stringify(data);
+        postData(logindata, url)
+        .then((response) => {     
+            console.log(response)
+            let url = `http://210.99.223.38:13405/api/room/web/admin/list/0/5`
+            asyncget(url, cb_test,errorCallbackVendor);
+            fetchGet(url,requestOptions,callback,errorcallback)
+        })
+        .then(result => console.log(result))
+        .catch((error) => {
+            console.log(error);
+        });
+        // const url = 'http://210.99.223.38:13405/api/user/login';
+        // const data = {
+        //     "username" : "admin",
+        //     "password" : "admin1001"
+        // }
+        // var requestOptions = {
+        //     method: 'POST',
+        //     body: data,
+        //     redirect: 'follow'
+        //   };
+        // fetchData(url,requestOptions,callback,errorcallback)
     }
 
     const cb_logIn = () =>{
@@ -871,7 +872,6 @@
         console.log(error)
     }
     // call back for room section
-
     const cb_reviewRoomTable = (response) =>{
         console.log('review_rooms:',response,'total-pages',response.data.totalPages)
         let data =  response.data.room;
